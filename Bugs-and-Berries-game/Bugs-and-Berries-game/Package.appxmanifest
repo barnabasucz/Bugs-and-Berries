@@ -1,48 +1,27 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-
-<Package
-  xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10"
-  xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest"
-  xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10"
-  IgnorableNamespaces="uap mp">
-
-  <Identity
-    Name="ec5fe9b0-7592-492a-b273-f7d2607d37e7"
-    Publisher="CN=Barna"
-    Version="1.0.0.0" />
-
-  <mp:PhoneIdentity PhoneProductId="ec5fe9b0-7592-492a-b273-f7d2607d37e7" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
-
+<Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" IgnorableNamespaces="uap mp">
+  <Identity Name="60077Ucz.BugsAndBerriesGameandWatchRetro" Publisher="CN=BD1C921F-EA60-424B-A9B8-2ABC07A7EBDE" Version="1.1.0.0" />
+  <mp:PhoneIdentity PhoneProductId="60f4df95-78c2-4dd0-bfe8-55659fe9f0e3" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
-    <DisplayName>Bugs-and-Berries-game</DisplayName>
-    <PublisherDisplayName>Barna</PublisherDisplayName>
+    <DisplayName>Bugs And Berries (Game and Watch Retro)</DisplayName>
+    <PublisherDisplayName>Ucz</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
-
   <Dependencies>
     <TargetDeviceFamily Name="Windows.Universal" MinVersion="10.0.0.0" MaxVersionTested="10.0.0.0" />
   </Dependencies>
-
   <Resources>
-    <Resource Language="x-generate"/>
+    <Resource Language="x-generate" />
   </Resources>
-
   <Applications>
-    <Application Id="App"
-      Executable="$targetnametoken$.exe"
-      EntryPoint="Bugs_and_Berries_game.App">
-      <uap:VisualElements
-        DisplayName="Bugs-and-Berries-game"
-        Square150x150Logo="Assets\Square150x150Logo.png"
-        Square44x44Logo="Assets\Square44x44Logo.png"
-        Description="Bugs-and-Berries-game"
-        BackgroundColor="transparent">
-        <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png"/>
+    <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="Bugs_and_Berries_game.App">
+      <uap:VisualElements DisplayName="Bugs And Berries (Game and Watch Retro)" Square150x150Logo="Assets\Square150x150Logo.png" Square44x44Logo="Assets\Square44x44Logo.png" Description="Bugs and Berries: the first in a series of original &quot;LCD Throwback&quot; games by Gaming Bliss Studios, LLC." BackgroundColor="transparent">
+        <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png">
+        </uap:DefaultTile>
         <uap:SplashScreen Image="Assets\SplashScreen.png" />
       </uap:VisualElements>
     </Application>
   </Applications>
-
   <Capabilities>
     <Capability Name="internetClient" />
   </Capabilities>

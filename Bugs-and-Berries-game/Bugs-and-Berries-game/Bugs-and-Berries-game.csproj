@@ -17,7 +17,8 @@
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WindowsXamlEnableOverview>true</WindowsXamlEnableOverview>
-    <PackageCertificateKeyFile>Bugs-and-Berries-game_TemporaryKey.pfx</PackageCertificateKeyFile>
+    <PackageCertificateKeyFile>Bugs-and-Berries-game_StoreKey.pfx</PackageCertificateKeyFile>
+    <PackageCertificateThumbprint>4C6995BA1B024B5CDC83D09F7E96A748FDDA15C8</PackageCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
@@ -98,15 +99,25 @@
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ObjectLogic\ObjectLogicConstants.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Scripting\BugInterpreter.cs" />
+    <Compile Include="Scripting\Instructions.cs" />
+    <Compile Include="Scripting\Interpreter.cs" />
+    <Compile Include="Scripting\IScriptingServer.cs" />
+    <Compile Include="Scripting\PlayerInterpreter.cs" />
+    <Compile Include="Sounds\Sounds.cs" />
+    <Compile Include="World\NavMeshes.cs" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
+    <None Include="Bugs-and-Berries-game_StoreKey.pfx" />
     <None Include="Bugs-and-Berries-game_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Package.StoreAssociation.xml" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />
