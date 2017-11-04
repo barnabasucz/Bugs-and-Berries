@@ -41,6 +41,12 @@ namespace Bugs_and_Berries_game.World.NavMeshes
             var south = new List<Instruction>();
             var west = new List<Instruction>();
             var east = new List<Instruction>();
+            north.Add(new Instruction(OpCodes.PlaySound, (int)Sounds.SoundIds.Walk));
+            north.Add(new Instruction(OpCodes.MoveTo, northId));
+            west.Add(new Instruction(OpCodes.PlaySound, (int)Sounds.SoundIds.Walk));
+            west.Add(new Instruction(OpCodes.MoveTo, westId));
+            east.Add(new Instruction(OpCodes.PlaySound, (int)Sounds.SoundIds.Walk));
+            east.Add(new Instruction(OpCodes.MoveTo, eastId));
             return new NavMeshLocation(locationId, north, south, west, east);
         }
 
@@ -50,6 +56,10 @@ namespace Bugs_and_Berries_game.World.NavMeshes
             var south = new List<Instruction>();
             var west = new List<Instruction>();
             var east = new List<Instruction>();
+            north.Add(new Instruction(OpCodes.PlaySound, (int)Sounds.SoundIds.Walk));
+            north.Add(new Instruction(OpCodes.MoveTo, northId));
+            south.Add(new Instruction(OpCodes.PlaySound, (int)Sounds.SoundIds.Walk));
+            south.Add(new Instruction(OpCodes.MoveTo, southId));
             return new NavMeshLocation(locationId, north, south, west, east);
         }
 
@@ -59,6 +69,12 @@ namespace Bugs_and_Berries_game.World.NavMeshes
             var south = new List<Instruction>();
             var west = new List<Instruction>();
             var east = new List<Instruction>();
+            north.Add(new Instruction(OpCodes.PlaySound, (int)Sounds.SoundIds.Walk));
+            north.Add(new Instruction(OpCodes.MoveTo, northId));
+            south.Add(new Instruction(OpCodes.PlaySound, (int)Sounds.SoundIds.Walk));
+            south.Add(new Instruction(OpCodes.MoveTo, southId));
+            east.Add(new Instruction(OpCodes.PlaySound, (int)Sounds.SoundIds.Walk));
+            east.Add(new Instruction(OpCodes.MoveTo, eastId));
             return new NavMeshLocation(locationId, north, south, west, east);
         }
 
@@ -68,6 +84,8 @@ namespace Bugs_and_Berries_game.World.NavMeshes
             var south = new List<Instruction>();
             var west = new List<Instruction>();
             var east = new List<Instruction>();
+            south.Add(new Instruction(OpCodes.PlaySound, (int)Sounds.SoundIds.Walk));
+            south.Add(new Instruction(OpCodes.MoveTo, southId));
             return new NavMeshLocation(locationId, north, south, west, east);
         }
 
@@ -77,6 +95,14 @@ namespace Bugs_and_Berries_game.World.NavMeshes
             var south = new List<Instruction>();
             var west = new List<Instruction>();
             var east = new List<Instruction>();
+            north.Add(new Instruction(OpCodes.PlaySound, (int)Sounds.SoundIds.Walk));
+            north.Add(new Instruction(OpCodes.MoveTo, northId));
+            south.Add(new Instruction(OpCodes.PlaySound, (int)Sounds.SoundIds.Walk));
+            south.Add(new Instruction(OpCodes.MoveTo, southId));
+            west.Add(new Instruction(OpCodes.PlaySound, (int)Sounds.SoundIds.Walk));
+            west.Add(new Instruction(OpCodes.MoveTo, westId));
+            east.Add(new Instruction(OpCodes.PlaySound, (int)Sounds.SoundIds.Walk));
+            east.Add(new Instruction(OpCodes.MoveTo, eastId));
             return new NavMeshLocation(locationId, north, south, west, east);
         }
 
@@ -86,6 +112,12 @@ namespace Bugs_and_Berries_game.World.NavMeshes
             var south = new List<Instruction>();
             var west = new List<Instruction>();
             var east = new List<Instruction>();
+            north.Add(new Instruction(OpCodes.PlaySound, (int)Sounds.SoundIds.Walk));
+            north.Add(new Instruction(OpCodes.MoveTo, northId));
+            south.Add(new Instruction(OpCodes.PlaySound, (int)Sounds.SoundIds.Walk));
+            south.Add(new Instruction(OpCodes.MoveTo, southId));
+            west.Add(new Instruction(OpCodes.PlaySound, (int)Sounds.SoundIds.Walk));
+            west.Add(new Instruction(OpCodes.MoveTo, westId));
             return new NavMeshLocation(locationId, north, south, west, east);
         }
 
@@ -95,6 +127,10 @@ namespace Bugs_and_Berries_game.World.NavMeshes
             var south = new List<Instruction>();
             var west = new List<Instruction>();
             var east = new List<Instruction>();
+            north.Add(new Instruction(OpCodes.PlaySound, (int)Sounds.SoundIds.Walk));
+            north.Add(new Instruction(OpCodes.MoveTo, northId));
+            west.Add(new Instruction(OpCodes.PlaySound, (int)Sounds.SoundIds.Walk));
+            west.Add(new Instruction(OpCodes.MoveTo, westId));
             return new NavMeshLocation(locationId, north, south, west, east);
         }
     }
@@ -110,6 +146,9 @@ namespace Bugs_and_Berries_game.World.NavMeshes
             // At first, the levels will probably be distributed with the application itself;
             // eventually, they will be served from the cloud and streamed down to the player at program
             // startup...for future enhancement...
+            // hypothetically, this could be a singleton to prevent more than one copy of "the"
+            // level from being instantiated, but currently it's only a coincidence that there is
+            // only one level, and eventually there could be more than one.
             const int locationCount = 30;
             locations = new List<NavMeshLocation>(locationCount);
             locations.Add(NavMeshBuilder.BuildE(0, 1));
@@ -143,6 +182,39 @@ namespace Bugs_and_Berries_game.World.NavMeshes
             locations.Add(NavMeshBuilder.BuildNS(28, 29, 27));
             locations.Add(NavMeshBuilder.BuildS(29, 28));
         }
+
+        public List<Instruction> NorthConsequences(int fromId)
+        {
+            NavMeshLocation location = Location(fromId);
+            return (location != null ? location.NorthConsequences : new List<Instruction>());
+        }
+
+        public List<Instruction> SouthConsequences(int fromId)
+        {
+            NavMeshLocation location = Location(fromId);
+            return (location != null ? location.SouthConsequences : new List<Instruction>());
+        }
+
+        public List<Instruction> WestConsequences(int fromId)
+        {
+            NavMeshLocation location = Location(fromId);
+            return (location != null ? location.WestConsequences : new List<Instruction>());
+        }
+
+        public List<Instruction> EastConsequences(int fromId)
+        {
+            NavMeshLocation location = Location(fromId);
+            return (location != null ? location.EastConsequences : new List<Instruction>());
+        }
+
+        private NavMeshLocation Location(int locationId)
+        {
+            if (locationId >= 0 && locationId < locations.Count)
+            {
+                return locations[locationId];
+            }
+            return null;
+        }
     }
 
     public class NavMeshLocation
@@ -157,10 +229,10 @@ namespace Bugs_and_Berries_game.World.NavMeshes
             List<Instruction> east)
         {
             this.locationId = locationId;
-            this.northConsequences = north;
-            this.southConsequences = south;
-            this.westConsequences = west;
-            this.eastConsequences = east;
+            northConsequences = north;
+            southConsequences = south;
+            westConsequences = west;
+            eastConsequences = east;
         }
 
         public List<Instruction> NorthConsequences { get { return northConsequences; } }
