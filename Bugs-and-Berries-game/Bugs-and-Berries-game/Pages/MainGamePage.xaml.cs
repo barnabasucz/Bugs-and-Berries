@@ -46,5 +46,10 @@ namespace Bugs_and_Berries_game.Pages
         {
 
         }
+
+        private void ActionButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
