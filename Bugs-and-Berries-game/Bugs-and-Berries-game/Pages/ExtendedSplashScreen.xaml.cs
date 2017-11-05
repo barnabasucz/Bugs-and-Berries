@@ -14,24 +14,18 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
+// See tutorial and user comments at https://docs.microsoft.com/en-us/windows/uwp/launch-resume/create-a-customized-splash-screen#essential-xaml-for-an-extended-splash-screen
 
 namespace Bugs_and_Berries_game.Pages
 {
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class TitleScreenPage : Page
+    public sealed partial class ExtendedSplashScreen : Page
     {
-        public TitleScreenPage()
+        public ExtendedSplashScreen()
         {
             this.InitializeComponent();
-        }
-
-        private void PlayButton_Click(object sender, RoutedEventArgs e)
-        {
-            Frame rootFrame = Window.Current.Content as Frame;
-            rootFrame.Navigate(typeof(Pages.MainGamePage));
-            Window.Current.Activate();
         }
     }
 }

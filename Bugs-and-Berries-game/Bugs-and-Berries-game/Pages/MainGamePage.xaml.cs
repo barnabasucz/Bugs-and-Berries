@@ -26,5 +26,25 @@ namespace Bugs_and_Berries_game.Pages
         {
             this.InitializeComponent();
         }
+
+        private void NorthButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void WestButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void SouthButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void EastButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
