@@ -19,6 +19,9 @@
     <WindowsXamlEnableOverview>true</WindowsXamlEnableOverview>
     <PackageCertificateKeyFile>Bugs-and-Berries-game_StoreKey.pfx</PackageCertificateKeyFile>
     <PackageCertificateThumbprint>4C6995BA1B024B5CDC83D09F7E96A748FDDA15C8</PackageCertificateThumbprint>
+    <AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
+    <AppxBundle>Always</AppxBundle>
+    <AppxBundlePlatforms>x86|x64|arm</AppxBundlePlatforms>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
@@ -119,6 +122,14 @@
     <Compile Include="Scripting\IScriptingServer.cs" />
     <Compile Include="Scripting\PlayerInterpreter.cs" />
     <Compile Include="Sounds\Sounds.cs" />
+    <Compile Include="Visual\Arrangements.cs" />
+    <Compile Include="Visual\ICanvasBitmapHolder.cs" />
+    <Compile Include="Visual\ITileCoordinateHolder.cs" />
+    <Compile Include="Visual\TileGraphicArrangement.cs" />
+    <Compile Include="Visual\Visualizer.cs" />
+    <Compile Include="World\Globals.cs" />
+    <Compile Include="World\IGameItemHolder.cs" />
+    <Compile Include="World\Locations.cs" />
     <Compile Include="World\NavMeshes.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -130,11 +141,19 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Package.StoreAssociation.xml" />
+    <Content Include="Assets\E.png" />
     <Content Include="Assets\LargeTile.scale-100.png" />
     <Content Include="Assets\LargeTile.scale-125.png" />
     <Content Include="Assets\LargeTile.scale-150.png" />
     <Content Include="Assets\LargeTile.scale-200.png" />
     <Content Include="Assets\LargeTile.scale-400.png" />
+    <Content Include="Assets\NS.png" />
+    <Content Include="Assets\NSE.png" />
+    <Content Include="Assets\NSW.png" />
+    <Content Include="Assets\NSWE.png" />
+    <Content Include="Assets\NW.png" />
+    <Content Include="Assets\NWE.png" />
+    <Content Include="Assets\S.png" />
     <Content Include="Assets\SmallTile.scale-100.png" />
     <Content Include="Assets\SmallTile.scale-125.png" />
     <Content Include="Assets\SmallTile.scale-150.png" />
@@ -166,6 +185,7 @@
     <Content Include="Assets\StoreLogo.scale-150.png" />
     <Content Include="Assets\StoreLogo.scale-200.png" />
     <Content Include="Assets\StoreLogo.scale-400.png" />
+    <Content Include="Assets\WE.png" />
     <Content Include="Assets\Wide310x150Logo.scale-100.png" />
     <Content Include="Assets\Wide310x150Logo.scale-125.png" />
     <Content Include="Assets\Wide310x150Logo.scale-150.png" />
@@ -208,6 +228,15 @@
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.0.1</Version>
     </PackageReference>
+    <PackageReference Include="Win2D.uwp">
+      <Version>1.21.0</Version>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="ObjectLogic\Bug\" />
+    <Folder Include="ObjectLogic\Player\" />
+    <Folder Include="ObjectLogic\Sunblock\" />
+    <Folder Include="ObjectLogic\Sun\" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

@@ -3,9 +3,11 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:Bugs_and_Berries_game.Pages"
+    xmlns:canvas="using:Microsoft.Graphics.Canvas.UI.Xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d">
+    mc:Ignorable="d"
+    Unloaded="Page_Unloaded">
 
     <Grid Background="Black">
         <Grid.ColumnDefinitions>
@@ -69,18 +71,21 @@
         <Grid x:Name="MiddlePanel" Grid.Column="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="2*" />
-                <RowDefinition Height="5*" />
+                <RowDefinition Height="7*" />
                 <RowDefinition Height="2*" />
             </Grid.RowDefinitions>
             <Rectangle x:Name="TopPlateBG" Fill="SteelBlue" Grid.Row="0" 
                        HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
             <TextBlock x:Name="GameNamePlate" Text="Bugs and Berries" Foreground="Black"
-                       Grid.Row="0" FontSize="64" HorizontalAlignment="Center"
+                       Grid.Row="0" FontSize="32" HorizontalAlignment="Center"
                        VerticalAlignment="Center"/>
+            <canvas:CanvasControl x:Name="LcdScreen" Grid.Row="1"
+                                  Draw="LcdScreen_Draw"
+                                  CreateResources="LcdScreen_CreateResources"/>
             <Rectangle x:Name="BottomPlateBG" Fill="SteelBlue" Grid.Row="2" 
                        HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
             <TextBlock x:Name="CompanyNamePlate" Text="Gaming Bliss Studios, LLC" Foreground="Black"
-                       Grid.Row="2" FontSize="64" HorizontalAlignment="Center"
+                       Grid.Row="2" FontSize="32" HorizontalAlignment="Center"
                        VerticalAlignment="Center"/>
         </Grid>
         <Grid x:Name="RightPanel" Background="SteelBlue" Grid.Column="2">

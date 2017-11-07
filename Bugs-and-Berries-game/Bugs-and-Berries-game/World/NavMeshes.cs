@@ -135,6 +135,8 @@ namespace Bugs_and_Berries_game.World.NavMeshes
         }
     }
 
+    // Note: NavMesh only shows how the standing places are connected, not what items or actors
+    // are currently standing on each place...
     public class NavMesh
     {
         private List<NavMeshLocation> locations;
@@ -149,8 +151,7 @@ namespace Bugs_and_Berries_game.World.NavMeshes
             // hypothetically, this could be a singleton to prevent more than one copy of "the"
             // level from being instantiated, but currently it's only a coincidence that there is
             // only one level, and eventually there could be more than one.
-            const int locationCount = 30;
-            locations = new List<NavMeshLocation>(locationCount);
+            locations = new List<NavMeshLocation>(Globals.LocationCount);
             locations.Add(NavMeshBuilder.BuildE(0, 1));
             locations.Add(NavMeshBuilder.BuildWE(1, 0, 2));
             locations.Add(NavMeshBuilder.BuildNWE(2, 3, 1, 9));
