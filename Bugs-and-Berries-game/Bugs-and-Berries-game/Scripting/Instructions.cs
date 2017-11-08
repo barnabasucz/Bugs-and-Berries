@@ -29,4 +29,5 @@
         TryEast,
         Idle
     }
+    // The try opcodes are only used by the bug AI.
 }

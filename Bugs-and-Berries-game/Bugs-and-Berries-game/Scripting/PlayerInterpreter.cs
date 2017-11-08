@@ -17,6 +17,15 @@ namespace Bugs_and_Berries_game.Scripting
             dictionary.Add(Instructions.OpCodes.PickupSunblock, PickupSunblockAt);
         }
 
+        public void Dispatch(Instructions.OpCodes opCode, int param)
+        {
+            if (dictionary.ContainsKey(opCode))
+            {
+                Action<int> action = dictionary[opCode];
+                action(param);
+            }
+        }
+
         public void PlaySound(int soundType)
         {
             server.PlaySound(soundType);

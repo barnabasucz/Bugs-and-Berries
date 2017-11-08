@@ -11,41 +11,72 @@ namespace Bugs_and_Berries_game.Input
         private int elapsedIgnoreMilliseconds;
         private bool ignoringInput;
         private int maxIgnoreLength;
+        private Scripting.PlayerInterpreter interpreter;
+        private World.NavMeshes.NavMesh navMesh;
 
-        public UserInput()
+        public UserInput(Scripting.IScriptingServer scriptingServer, World.NavMeshes.NavMesh navMesh)
         {
             elapsedIgnoreMilliseconds = 0;
             ignoringInput = false;
+            interpreter = new Scripting.PlayerInterpreter(scriptingServer);
+            this.navMesh = navMesh;
         }
 
-        public void ReceiveNorth()
+         public void ReceiveNorth(int locationId)
         {
-
+            if (!ignoringInput)
+            {
+                foreach(var instruction in navMesh.NorthConsequences(locationId))
+                {
+                    interpreter.Dispatch(instruction.OpCode, instruction.Operand);
+                }
+            }
         }
 
-        public void ReceiveSouth()
+        public void ReceiveSouth(int locationId)
         {
-
+            if (!ignoringInput)
+            {
+                foreach(var instruction in navMesh.SouthConsequences(locationId))
+                {
+                    interpreter.Dispatch(instruction.OpCode, instruction.Operand);
+                }
+            }
         }
 
-        public void ReceiveWest()
+        public void ReceiveWest(int locationId)
         {
-
+            if (!ignoringInput)
+            {
+                foreach(var instruction in navMesh.WestConsequences(locationId))
+                {
+                    interpreter.Dispatch(instruction.OpCode, instruction.Operand);
+                }
+            }
         }
 
-        public void ReceiveEast()
+        public void ReceiveEast(int locationId)
         {
-
+            if (!ignoringInput)
+            {
+                foreach(var instruction in navMesh.EastConsequences(locationId))
+                {
+                    interpreter.Dispatch(instruction.OpCode, instruction.Operand);
+                }
+            }
         }
 
-        public void ReceiveAction()
+        public void ReceiveAction(int locationId)
         {
+            if (!ignoringInput)
+            {
 
+            }
         }
 
         public void ReceivePause()
         {
-
+            // Don't ignore pause.
         }
 
         public void Update(int elapsedMilliseconds)

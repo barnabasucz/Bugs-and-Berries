@@ -20,6 +20,15 @@ namespace Bugs_and_Berries_game.Scripting
             dictionary.Add(Instructions.OpCodes.Idle, Idle);
         }
 
+        public void Dispatch(Instructions.OpCodes opCode, int param)
+        {
+            if (dictionary.ContainsKey(opCode))
+            {
+                Action<int> action = dictionary[opCode];
+                action(param);
+            }
+        }
+
         public void MoveTo(int destinationId)
         {
             server.MoveTo(bugId, destinationId);

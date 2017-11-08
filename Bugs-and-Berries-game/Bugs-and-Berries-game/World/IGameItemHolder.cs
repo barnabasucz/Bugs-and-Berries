@@ -8,12 +8,14 @@ namespace Bugs_and_Berries_game.World
 {
     public interface IGameItemHolder
     {
+        void ResetGame();
+        void ResetPlayer();
         bool IsPlayerAt(int locationId);
         bool IsBerryAt(int locationId);
         bool IsSunBlockAt(int locationId);
         bool IsBugAt(int locationId);
-        void MoveBug(int fromLocationId, int toLocationId);
-        void MovePlayer(int fromLocationId, int toLocationId);
+        void MoveBug(int bugId, int toLocationId);
+        void MovePlayer(int toLocationId);
         void RemoveBerry(int locationId);
         void RemoveSunblock();
     }

@@ -1,5 +1,4 @@
-﻿using Microsoft.Graphics.Canvas.Brushes;
-using Windows.UI;
+﻿using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Automation.Peers;
 using Windows.UI.Xaml.Automation.Provider;
@@ -12,10 +11,13 @@ namespace Bugs_and_Berries_game.Pages
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class MainGamePage : Page
+    public sealed partial class MainGamePage : Page, Scripting.IScriptingServer
     {
         private StateMachine.GameStateMachine gameStateMachine;
         private Visual.Visualizer visualizer;
+        private World.Locations.LocationContainer locationContainer;
+        private Visual.Arrangements.TileArrangements tileArrangements;
+        private World.NavMeshes.NavMesh navMesh;
         private Input.UserInput userInput;
         private bool isLoaded;
         private bool upKeyPressed;
@@ -42,10 +44,13 @@ namespace Bugs_and_Berries_game.Pages
         {
             isLoaded = false;
             gameStateMachine = new StateMachine.GameStateMachine();
+            locationContainer = new World.Locations.LocationContainer();
+            tileArrangements = new Visual.Arrangements.TileArrangements();
             visualizer = new Visual.Visualizer(
-                new World.Locations.LocationContainer(), new Visual.Arrangements.TileArrangements(),
+                locationContainer, tileArrangements,
                 new Visual.TileGraphicArrangement());
-            userInput = new Input.UserInput();
+            navMesh = new World.NavMeshes.NavMesh();
+            userInput = new Input.UserInput(this, navMesh);
             this.InitializeComponent();
             upKeyPressed = false;
             downKeyPressed = false;
@@ -72,7 +77,7 @@ namespace Bugs_and_Berries_game.Pages
         {
             if (!spacebarPressed)
             {
-                userInput.ReceiveNorth();
+                userInput.ReceiveNorth(locationContainer.PlayerLocationId);
                 spacebarPressed = false;
             }
         }
@@ -81,7 +86,7 @@ namespace Bugs_and_Berries_game.Pages
         {
             if (!spacebarPressed)
             {
-                userInput.ReceiveWest();
+                userInput.ReceiveWest(locationContainer.PlayerLocationId);
                 spacebarPressed = false;
             }
         }
@@ -90,7 +95,7 @@ namespace Bugs_and_Berries_game.Pages
         {
             if (!spacebarPressed)
             {
-                userInput.ReceiveSouth();
+                userInput.ReceiveSouth(locationContainer.PlayerLocationId);
                 spacebarPressed = false;
             }
         }
@@ -99,7 +104,7 @@ namespace Bugs_and_Berries_game.Pages
         {
             if (!spacebarPressed)
             {
-                userInput.ReceiveEast();
+                userInput.ReceiveEast(locationContainer.PlayerLocationId);
                 spacebarPressed = false;
             }
         }
@@ -108,7 +113,7 @@ namespace Bugs_and_Berries_game.Pages
         {
             if (!spacebarPressed)
             {
-                userInput.ReceiveAction();
+                userInput.ReceiveAction(locationContainer.PlayerLocationId);
                 spacebarPressed = false;
             }
         }
@@ -251,6 +256,77 @@ namespace Bugs_and_Berries_game.Pages
             Frame rootFrame = Window.Current.Content as Frame;
             rootFrame.Navigate(typeof(Pages.HelpPage));
             Window.Current.Activate();
+        }
+
+        public void PlaySound(int soundType)
+        {
+            // NOP
+            // (later, ask the sound player object to start the indicated sound)
+            //throw new System.NotImplementedException();
+        }
+
+        public void MoveTo(int objectId, int destinationId)
+        {
+            if (objectId == ObjectLogic.Constants.ObjectIds.PlayerId)
+            {
+                locationContainer.MovePlayer(destinationId);
+            }
+            else
+            {
+                locationContainer.MoveBug(objectId, destinationId);
+            }
+        }
+
+        public void IgnoreInput(int milliseconds)
+        {
+            // assume this consequence came from the player, because bug interpreter doesn't interpret IgnoreInput.
+            userInput.IgnoreInput(milliseconds);
+        }
+
+        public void BitePlayer()
+        {
+            // to do: move game state to player dying
+            throw new System.NotImplementedException();
+        }
+
+        public void PickupBerryAt(int destinationId)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void PickupSunblockAt(int destinationId)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void TryNorth(int locationId)
+        {
+            // possible that this doesn't belong in the IScriptingServer interface, because an earlier object should always handle it
+            throw new System.NotImplementedException();
+        }
+
+        public void TrySouth(int locationId)
+        {
+            // possible that this doesn't belong in the IScriptingServer interface, because an earlier object should always handle it
+            throw new System.NotImplementedException();
+        }
+
+        public void TryWest(int locationId)
+        {
+            // possible that this doesn't belong in the IScriptingServer interface, because an earlier object should always handle it
+            throw new System.NotImplementedException();
+        }
+
+        public void TryEast(int locationId)
+        {
+            // possible that this doesn't belong in the IScriptingServer interface, because an earlier object should always handle it
+            throw new System.NotImplementedException();
+        }
+
+        public void Idle(int milliseconds)
+        {
+            // possible that this doesn't belong in the IScriptingServer interface, because an earlier object should always handle it
+            throw new System.NotImplementedException();
         }
     }
 }

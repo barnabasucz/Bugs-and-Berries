@@ -10,6 +10,7 @@ namespace Bugs_and_Berries_game.World.Locations
             this.isBerry = isBerry;
             this.isSunblock = isSunblock;
             this.isBug = isBug;
+
         }
         private bool isPlayer;
         public bool IsPlayer { get { return isPlayer; } set { isPlayer = value; } }
@@ -24,10 +25,21 @@ namespace Bugs_and_Berries_game.World.Locations
     public class LocationContainer: IGameItemHolder
     {
         private List<Location> locations;
+        private int playerLocationId;
+        private Dictionary<int, int> bugLocations;
         public LocationContainer()
         {
             locations = new List<Location>(Globals.LocationCount);
+            for (int i = 0; i < Globals.LocationCount; i++)
+            {
+                locations.Add(new Location(false, false, false, false));
+            }
+            playerLocationId = 0;
+            bugLocations = new Dictionary<int, int>();
+            ResetGame();
         }
+
+        public int PlayerLocationId { get { return playerLocationId; } }
 
         public enum GameObjectTypes
         {
@@ -44,7 +56,7 @@ namespace Bugs_and_Berries_game.World.Locations
             // Can store each location in a byte, or in a word, integer, etc.
             // Using int for now, even though it might waste space.  Will make adding new object 
             // types easy in the future.
-           
+            int bugsAdded = 0;
             if(configuration.Length == Globals.LocationCount)
             {
                 for(int i = 0; i < Globals.LocationCount; i++)
@@ -55,9 +67,26 @@ namespace Bugs_and_Berries_game.World.Locations
                     bool isSunblock = (0 != (locationConfig & (int)GameObjectTypes.Sunblock));
                     bool isBug = (0 != (locationConfig & (int)GameObjectTypes.Bug));
                     Location loc = new Location(isPlayer, isBerry, isSunblock, isBug);
+                    if (isBug)
+                    {
+                        bugsAdded++;
+                        bugLocations.Add(bugsAdded, i);
+                    }
                     locations[i] = loc;
                 }
             }
+        }
+
+        public void ResetGame()
+        {
+            // set the wave back to #0, then feed in the first (#0) wave.
+            ResetPlayer();
+        }
+
+        public void ResetPlayer()
+        {
+            locations[playerLocationId].IsPlayer = false;
+            locations[0].IsPlayer = true;
         }
 
         private Location location(int locationId)
@@ -93,25 +122,30 @@ namespace Bugs_and_Berries_game.World.Locations
             return (loc != null ? loc.IsBug : false);
         }
 
-        public void MoveBug(int fromLocationId, int toLocationId)
+        public void MoveBug(int bugId, int toLocationId)
         {
-            if (fromLocationId >= 0 && toLocationId >= 0 && fromLocationId < locations.Count && toLocationId < locations.Count)
+            if (bugLocations.ContainsKey(bugId))
             {
-                Location from = locations[fromLocationId];
-                Location to = locations[toLocationId];
-                from.IsBug = false;
-                to.IsBug = true;
+                if (toLocationId >= 0 && toLocationId < locations.Count)
+                {
+                    Location from = locations[bugLocations[bugId]];
+                    Location to = locations[toLocationId];
+                    from.IsBug = false;
+                    to.IsBug = true;
+                    bugLocations[bugId] = toLocationId;
+                }
             }
-        }
+       }
 
-        public void MovePlayer(int fromLocationId, int toLocationId)
+        public void MovePlayer(int toLocationId)
         {
-            if (fromLocationId >= 0 && toLocationId >= 0 && fromLocationId < locations.Count && toLocationId < locations.Count)
+            if (toLocationId >= 0 && toLocationId < locations.Count)
             {
-                Location from = locations[fromLocationId];
+                Location from = locations[playerLocationId];
                 Location to = locations[toLocationId];
                 from.IsPlayer = false;
                 to.IsPlayer = true;
+                playerLocationId = toLocationId;
             }
         }
 

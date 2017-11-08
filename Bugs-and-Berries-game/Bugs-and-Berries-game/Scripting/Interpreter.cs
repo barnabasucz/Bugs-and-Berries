@@ -4,6 +4,11 @@ using System.Collections.Generic;
 
 namespace Bugs_and_Berries_game.Scripting
 {
+    public enum ScriptedObjectType
+    {
+        Player,
+        Bug
+    }
     public abstract class Interpreter
     {
         protected Dictionary<Instructions.OpCodes, Action<int>> dictionary;
