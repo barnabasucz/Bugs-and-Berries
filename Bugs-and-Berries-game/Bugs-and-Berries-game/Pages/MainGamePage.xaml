@@ -9,7 +9,7 @@
     mc:Ignorable="d"
     Unloaded="Page_Unloaded">
 
-    <Grid Background="Black">
+    <Grid Background="Black" KeyDown="Grid_KeyDown" KeyUp="Grid_KeyUp">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*" />
             <ColumnDefinition Width="2*" />
@@ -43,11 +43,12 @@
                     <ColumnDefinition x:Name="WestEastButtonsRow" Width="1*" />
                     <ColumnDefinition x:Name="SouthButtonRow" Width="1*" />
                 </Grid.ColumnDefinitions>
-                <Button x:Name="NorthButton" Background="Red" 
+                <Button x:Name="NorthButton" Background="Red"
                         Grid.Row="0" Grid.Column="1"
                         HorizontalAlignment="Stretch"
                         VerticalAlignment="Stretch"
-                        Click="NorthButton_Click"/>
+                        Click="NorthButton_Click">
+                </Button>
                 <Button x:Name="SouthButton" Background="Red" 
                         Grid.Row="2" Grid.Column="1"
                         HorizontalAlignment="Stretch"
@@ -79,9 +80,10 @@
             <TextBlock x:Name="GameNamePlate" Text="Bugs and Berries" Foreground="Black"
                        Grid.Row="0" FontSize="32" HorizontalAlignment="Center"
                        VerticalAlignment="Center"/>
-            <canvas:CanvasControl x:Name="LcdScreen" Grid.Row="1"
+            <canvas:CanvasAnimatedControl x:Name="LcdScreen" Grid.Row="1"
                                   Draw="LcdScreen_Draw"
-                                  CreateResources="LcdScreen_CreateResources"/>
+                                  CreateResources="LcdScreen_CreateResources"
+                                          Update="LcdScreen_Update"/>
             <Rectangle x:Name="BottomPlateBG" Fill="SteelBlue" Grid.Row="2" 
                        HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
             <TextBlock x:Name="CompanyNamePlate" Text="Gaming Bliss Studios, LLC" Foreground="Black"
@@ -90,12 +92,20 @@
         </Grid>
         <Grid x:Name="RightPanel" Background="SteelBlue" Grid.Column="2">
             <Grid.RowDefinitions>
-                <RowDefinition Height="10*" />
-                <RowDefinition Height="3*" />
                 <RowDefinition Height="1*" />
+                <RowDefinition Height="2*" />
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="2*" />
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="10*" />
+                <RowDefinition Height="4*" />
                 <RowDefinition Height="1*" />
             </Grid.RowDefinitions>
-            <Grid x:Name="ActionButtonRow" Grid.Row="1">
+            <Button x:Name="PauseButton" Grid.Row="1" FontSize="64" Foreground="White" Background="Gray"
+                    Click="PauseButton_Click">PAUSE</Button>
+            <Button x:Name="HelpButton" Grid.Row="3" FontSize="64" Foreground="White" Background="Gray"
+                    Click="HelpButton_Click">HELP</Button>
+            <Grid x:Name="ActionButtonRow" Grid.Row="6">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*" />
                     <ColumnDefinition Width="2*" />
@@ -106,7 +116,7 @@
                         HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
             </Grid>
             <TextBlock x:Name="ActionButtonLabel" Text="ACTION"
-                       Grid.Row="2" Foreground ="AntiqueWhite"
+                       Grid.Row="7" Foreground ="AntiqueWhite"
                        FontSize="32" HorizontalAlignment="Center" />
         </Grid>
     </Grid>

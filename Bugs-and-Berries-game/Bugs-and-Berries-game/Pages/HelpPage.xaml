@@ -1,0 +1,62 @@
+﻿<Page
+    x:Class="Bugs_and_Berries_game.Pages.HelpPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Bugs_and_Berries_game.Pages"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid Background="Black">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="1*" />
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" Foreground="White" FontSize="64" Text="HOW TO PLAY" />
+        <TextBlock Grid.Row="2" Foreground="AntiqueWhite" FontSize="32" Text="Game Objective" />
+        <TextBlock Grid.Row="4" Foreground="AntiqueWhite" FontSize="32" Text="Game Controls" />
+        <Grid x:Name="GameObjectiveGrid" Grid.Row="5" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="10*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="1*" />
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Row="0" Grid.Column="0" Text="To Move Player" FontSize="16" Foreground="White" />
+            <TextBlock Grid.Row="0" Grid.Column="1" FontSize="16" Foreground="LightGreen" FontWeight="Bold"
+                       Text="Touch: press 'Movement' buttons with your finger; Mouse: click 'Movement' buttons; Keyboard: use arrow keys" />
+            <TextBlock Grid.Row="1" Grid.Column="1" FontSize="16" Foreground="LightGreen" FontWeight="Bold"
+                       Text="Mouse: click 'Movement' buttons; Keyboard: use arrow keys" />
+            <TextBlock Grid.Row="2" Grid.Column="1" FontSize="16" Foreground="LightGreen" FontWeight="Bold"
+                       Text="Keyboard: use arrow keys" />
+            <TextBlock Grid.Row="4" Grid.Column="0" Text="Pick up Berry or Sunblock" Foreground="White" FontSize="16" />
+            <TextBlock Grid.Row="4" Grid.Column="1" FontSize="16" Foreground="LightGreen" FontWeight="Bold"
+                       Text="Touch: press 'Action' button with your finger; Mouse: click 'Action' button; Keyboard: press the 'A' key (NOT spacebar, NOT Enter!)" />
+            <TextBlock Grid.Row="5" Grid.Column="1" FontSize="16" Foreground="LightGreen" FontWeight="Bold"
+                       Text="Mouse: click 'Action' button" />
+            <TextBlock Grid.Row="6" Grid.Column="1" FontSize="16" Foreground="LightGreen" FontWeight="Bold"
+                       Text="Keyboard: press the 'A' key (NOT spacebar, NOT Enter!)" />
+        </Grid>
+        <Grid Grid.Row="6">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="10*" />
+                <ColumnDefinition Width="2*" />
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="1" Foreground="White" Background="Gray" FontSize="64" Click="Button_Click">Back</Button>
+        </Grid>
+
+    </Grid>
+</Page>

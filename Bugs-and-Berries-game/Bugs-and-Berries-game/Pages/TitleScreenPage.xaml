@@ -18,7 +18,11 @@
                            
         </Grid.RowDefinitions>
         <TextBlock Grid.Row="0" Text="Title Screen" FontSize="32" Foreground="AliceBlue"/>
-        <Button Grid.Row="1" x:Name="PlayButton" Foreground="AliceBlue" Click="PlayButton_Click">Play</Button>
+        <StackPanel Grid.Row="1" Orientation="Vertical">
+            <Button x:Name="PlayButton" Foreground="AliceBlue" Background="Gray" FontSize="64" Click="PlayButton_Click">Play</Button>
+            <Button x:Name="HelpButton" Foreground="AntiqueWhite" Background="Gray" FontSize="64" Click="HelpButton_Click">Help</Button>
+            <Button x:Name="EditButton" Foreground="Azure" Background="Gray" FontSize="64" Click="EditButton_Click">Edit</Button>
+        </StackPanel>
         <TextBlock Grid.Row="2" Text="Send email to feedback.bugsandberries@gmail.com" FontSize="32" Foreground="AliceBlue"/>
     </Grid>
 </Page>

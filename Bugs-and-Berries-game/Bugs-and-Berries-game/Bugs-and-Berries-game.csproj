@@ -99,9 +99,16 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Input\UserInput.cs" />
     <Compile Include="ObjectLogic\ObjectLogicConstants.cs" />
+    <Compile Include="Pages\EditorPage.xaml.cs">
+      <DependentUpon>EditorPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\ExtendedSplashScreen.xaml.cs">
       <DependentUpon>ExtendedSplashScreen.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\HelpPage.xaml.cs">
+      <DependentUpon>HelpPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\HighScoresPage.xaml.cs">
       <DependentUpon>HighScoresPage.xaml</DependentUpon>
@@ -122,6 +129,7 @@
     <Compile Include="Scripting\IScriptingServer.cs" />
     <Compile Include="Scripting\PlayerInterpreter.cs" />
     <Compile Include="Sounds\Sounds.cs" />
+    <Compile Include="StateMachine\GameStateMachine.cs" />
     <Compile Include="Visual\Arrangements.cs" />
     <Compile Include="Visual\ICanvasBitmapHolder.cs" />
     <Compile Include="Visual\ITileCoordinateHolder.cs" />
@@ -141,7 +149,16 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Package.StoreAssociation.xml" />
+    <Content Include="Assets\Berry.png" />
+    <Content Include="Assets\Bug.png" />
     <Content Include="Assets\E.png" />
+    <EmbeddedResource Include="Assets\Editor_AddWaveButton.png" />
+    <EmbeddedResource Include="Assets\Editor_BerryToolButton.png" />
+    <EmbeddedResource Include="Assets\Editor_BugToolButton.png" />
+    <EmbeddedResource Include="Assets\Editor_EraserButton.png" />
+    <EmbeddedResource Include="Assets\Editor_PlayButton.png" />
+    <EmbeddedResource Include="Assets\Editor_SaveWaveButton.png" />
+    <EmbeddedResource Include="Assets\Editor_TrashWaveButton.png" />
     <Content Include="Assets\LargeTile.scale-100.png" />
     <Content Include="Assets\LargeTile.scale-125.png" />
     <Content Include="Assets\LargeTile.scale-150.png" />
@@ -153,6 +170,8 @@
     <Content Include="Assets\NSWE.png" />
     <Content Include="Assets\NW.png" />
     <Content Include="Assets\NWE.png" />
+    <Content Include="Assets\PlayerIdle.png" />
+    <Content Include="Assets\PlayerPicking.png" />
     <Content Include="Assets\S.png" />
     <Content Include="Assets\SmallTile.scale-100.png" />
     <Content Include="Assets\SmallTile.scale-125.png" />
@@ -203,7 +222,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Pages\EditorPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\ExtendedSplashScreen.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\HelpPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

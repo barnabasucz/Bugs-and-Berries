@@ -1,14 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.Graphics.Canvas;
 
 namespace Bugs_and_Berries_game.Visual
 {
     public interface ICanvasBitmapHolder
     {
-        Microsoft.Graphics.Canvas.CanvasBitmap BitmapForLocation(int locationId);
-        void CreateResources(Microsoft.Graphics.Canvas.UI.Xaml.CanvasControl sender, Microsoft.Graphics.Canvas.UI.CanvasCreateResourcesEventArgs args);
+        CanvasBitmap BitmapForLocation(int locationId);
+        CanvasBitmap BerryBitmap();
+        CanvasBitmap BugBitmap();
+        CanvasBitmap PlayerIdleBitmap();
+        CanvasBitmap PlayerPickingBitmap();
+        void CreateResources(Microsoft.Graphics.Canvas.UI.Xaml.CanvasAnimatedControl sender, Microsoft.Graphics.Canvas.UI.CanvasCreateResourcesEventArgs args);
     }
 }

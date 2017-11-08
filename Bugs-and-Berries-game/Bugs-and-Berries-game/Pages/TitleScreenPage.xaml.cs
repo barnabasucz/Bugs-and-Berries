@@ -33,5 +33,19 @@ namespace Bugs_and_Berries_game.Pages
             rootFrame.Navigate(typeof(Pages.MainGamePage));
             Window.Current.Activate();
         }
+
+        private void EditButton_Click(object sender, RoutedEventArgs e)
+        {
+            Frame rootFrame = Window.Current.Content as Frame;
+            rootFrame.Navigate(typeof(Pages.EditorPage));
+            Window.Current.Activate();
+        }
+
+        private void HelpButton_Click(object sender, RoutedEventArgs e)
+        {
+            Frame rootFrame = Window.Current.Content as Frame;
+            rootFrame.Navigate(typeof(Pages.HelpPage));
+            Window.Current.Activate();
+        }
     }
 }

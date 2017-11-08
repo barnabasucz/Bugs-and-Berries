@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="400"
+   height="400"
+   viewBox="0 0 105.83333 105.83334"
+   version="1.1"
+   id="svg34"
+   inkscape:version="0.92.2 (5c3e80d, 2017-08-06)"
+   sodipodi:docname="Editor_BerryToolButton.svg"
+   inkscape:export-filename="C:\Users\Barna\source\repos\Bugs-and-Berries\inkscape files\Editor_BerryToolButton.png"
+   inkscape:export-xdpi="96"
+   inkscape:export-ydpi="96">
+  <defs
+     id="defs28">
+    <inkscape:perspective
+       sodipodi:type="inkscape:persp3d"
+       inkscape:vp_x="0 : 52.91667 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_z="105.83333 : 52.91667 : 1"
+       inkscape:persp3d-origin="52.916665 : 35.27778 : 1"
+       id="perspective91" />
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.7"
+     inkscape:cx="513.6593"
+     inkscape:cy="35.832572"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer2"
+     showgrid="false"
+     units="px"
+     inkscape:pagecheckerboard="true"
+     inkscape:window-width="2160"
+     inkscape:window-height="1346"
+     inkscape:window-x="-11"
+     inkscape:window-y="-11"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata31">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0,-191.16665)" />
+  <g
+     inkscape:groupmode="layer"
+     id="layer2"
+     inkscape:label="Layer 2"
+     style="display:inline;opacity:1">
+    <rect
+       style="fill:#ececec;fill-opacity:1;stroke-width:0.21038069"
+       id="rect37"
+       width="106.58929"
+       height="107.34522"
+       x="4.0871748e-007"
+       y="2.2706536e-007" />
+    <ellipse
+       style="fill:#000080;fill-opacity:1;stroke-width:0.24738206"
+       id="path432"
+       cx="33.980259"
+       cy="71.169762"
+       rx="44.661663"
+       ry="27.41559"
+       transform="matrix(0.92463337,-0.38085842,0.37906602,0.92536963,0,0)" />
+  </g>
+  <g
+     inkscape:groupmode="layer"
+     id="layer3"
+     inkscape:label="Layer 3"
+     style="display:inline">
+    <g
+       id="g207"
+       transform="matrix(0.88764254,-0.78366279,0.75782179,0.91791029,-195.31021,202.52162)"
+       style="fill:#e6e6e6">
+      <path
+         sodipodi:nodetypes="ccccc"
+         inkscape:connector-curvature="0"
+         id="path196"
+         d="m 250.18806,60.278751 c 1.63604,-1.724524 4.76963,-2.167956 10.04913,-8.515181 -10.70785,4.061705 -12.31624,5.040464 -14.11817,6.1995 -3.9539,2.557835 -1.82463,3.624147 -3.94398,11.655474 6.0659,-7.145121 6.61137,-8.436314 8.01302,-9.339793 z"
+         style="fill:#e6e6e6;fill-opacity:1;stroke-width:0.11566541" />
+      <path
+         style="fill:#e6e6e6;fill-opacity:1;stroke-width:0.11566541"
+         d="m 246.04281,60.762915 c 3.20942,0.810231 4.17711,2.512265 15.95067,5.085803 -7.91896,-5.682325 -9.77618,-6.5165 -11.97009,-7.447755 -4.84046,-2.042656 -6.65999,-0.814316 -21.31791,-1.559497 13.26002,2.964626 15.62731,3.19716 17.33733,3.921449 z"
+         id="path202"
+         inkscape:connector-curvature="0"
+         sodipodi:nodetypes="ccccc" />
+    </g>
+  </g>
+</svg>

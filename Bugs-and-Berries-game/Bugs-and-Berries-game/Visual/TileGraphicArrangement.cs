@@ -24,7 +24,11 @@ namespace Bugs_and_Berries_game.Visual
             S = 5,
             NSWE = 6,
             NSW = 7,
-            NW = 8
+            NW = 8,
+            Berry = 9,
+            Bug = 10,
+            PlayerIdle = 11,
+            PlayerPicking = 12
         }
 
         public TileGraphicArrangement()
@@ -32,18 +36,19 @@ namespace Bugs_and_Berries_game.Visual
             InitializeDefault();
         }
 
-        async System.Threading.Tasks.Task CreateResourcesAsync(Microsoft.Graphics.Canvas.UI.Xaml.CanvasControl sender)
+        async System.Threading.Tasks.Task CreateResourcesAsync(
+            Microsoft.Graphics.Canvas.UI.Xaml.CanvasAnimatedControl sender)
         {
             await LoadBitmaps(sender);
         }
 
-        void ICanvasBitmapHolder.CreateResources(Microsoft.Graphics.Canvas.UI.Xaml.CanvasControl sender, 
+        void ICanvasBitmapHolder.CreateResources(Microsoft.Graphics.Canvas.UI.Xaml.CanvasAnimatedControl sender, 
             Microsoft.Graphics.Canvas.UI.CanvasCreateResourcesEventArgs args)
         {
             args.TrackAsyncAction(CreateResourcesAsync(sender).AsAsyncAction());
         }
 
-        async System.Threading.Tasks.Task LoadBitmaps(Microsoft.Graphics.Canvas.UI.Xaml.CanvasControl sender)
+        async System.Threading.Tasks.Task LoadBitmaps(Microsoft.Graphics.Canvas.UI.Xaml.CanvasAnimatedControl sender)
         {
             try
             {
@@ -51,7 +56,8 @@ namespace Bugs_and_Berries_game.Visual
                 StorageFolder installedLocation = package.InstalledLocation;
                 string folderName = installedLocation.Path + "\\" + "Assets" + "\\";
                 bitmaps = null;
-                bitmaps = new List<Microsoft.Graphics.Canvas.CanvasBitmap>((int)BitmapIds.NW + 1);
+                bitmaps = new List<Microsoft.Graphics.Canvas.CanvasBitmap>((int)BitmapIds.PlayerPicking + 1);
+                // E, WE need to be redrawn to look like they are in the shade of the tent
                 bitmaps.Add( await CanvasBitmap.LoadAsync(sender, folderName + @"E.png")); //bitmaps[(int)BitmapIds.E]
                 bitmaps.Add( await CanvasBitmap.LoadAsync(sender, folderName +@"WE.png")); //bitmaps[(int)BitmapIds.WE] 
                 bitmaps.Add( await CanvasBitmap.LoadAsync(sender, folderName + @"NWE.png")); //bitmaps[(int)BitmapIds.NWE]
@@ -61,6 +67,12 @@ namespace Bugs_and_Berries_game.Visual
                 bitmaps.Add( await CanvasBitmap.LoadAsync(sender, folderName + @"NSWE.png")); //bitmaps[(int)BitmapIds.NSWE]
                 bitmaps.Add( await CanvasBitmap.LoadAsync(sender, folderName + @"NSW.png")); //bitmaps[(int)BitmapIds.NSW]
                 bitmaps.Add( await CanvasBitmap.LoadAsync(sender, folderName + @"NW.png")); //bitmaps[(int)BitmapIds.NW]
+                // Add Tent Left and Tent Right, here (also insert relevant enums before BitmapIds.Berry)
+                bitmaps.Add(await CanvasBitmap.LoadAsync(sender, folderName + @"Berry.png")); // bitmaps[(int)BitmapIds.Berry]
+                bitmaps.Add(await CanvasBitmap.LoadAsync(sender, folderName + @"Bug.png")); // bitmaps[(int)BitmapIds.Bug]
+                bitmaps.Add(await CanvasBitmap.LoadAsync(sender, folderName + @"PlayerIdle.png")); // bitmaps[(int)BitmapIds.PlayerIdle]
+                bitmaps.Add(await CanvasBitmap.LoadAsync(sender, folderName + @"PlayerPicking.png")); // bitmaps[(int)BitmapIds.PlayerPicking]
+
             }
             catch (Exception ex)
             {
@@ -104,7 +116,25 @@ namespace Bugs_and_Berries_game.Visual
             bitmapArrangement.Add((int)BitmapIds.S);
         }
 
-        // implement CreateResources; client should call this during its own CreateResources call
+        public CanvasBitmap BerryBitmap()
+        {
+            return bitmaps[(int)BitmapIds.Berry];
+        }
+
+        public CanvasBitmap BugBitmap()
+        {
+            return bitmaps[(int)BitmapIds.Bug];
+        }
+
+        public CanvasBitmap PlayerIdleBitmap()
+        {
+            return bitmaps[(int)BitmapIds.PlayerIdle];
+        }
+
+        public CanvasBitmap PlayerPickingBitmap()
+        {
+            return bitmaps[(int)BitmapIds.PlayerPicking];
+        }
 
         public CanvasBitmap BitmapForLocation(int locationId)
         {
