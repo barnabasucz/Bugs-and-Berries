@@ -131,6 +131,7 @@
     <Compile Include="Scripting\PlayerInterpreter.cs" />
     <Compile Include="Sounds\Sounds.cs" />
     <Compile Include="StateMachine\GameStateMachine.cs" />
+    <Compile Include="StateMachine\IStateTransitionObserver.cs" />
     <Compile Include="Visual\Arrangements.cs" />
     <Compile Include="Visual\ICanvasBitmapHolder.cs" />
     <Compile Include="Visual\ITileCoordinateHolder.cs" />

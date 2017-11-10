@@ -20,15 +20,18 @@ namespace Bugs_and_Berries_game.StateMachine
     {
         private int stateTimeMsElapsed;
         private delegate void UpdateFunc(int msElapsed);
-        private delegate void TransitionFunc();
         private UpdateFunc currentUpdateFunc;
         private Dictionary<GameStateCodes, UpdateFunc> gameStateUpdateMappings;
-        private Dictionary<GameStateCodes, TransitionFunc> transitionFunctionMappings;
         private GameStateCodes gameStateCode;
+        private int maxDyingTime;
+        private int maxReadyingTime;
+        private List<IStateTransitionObserver> observers;
 
         public GameStateMachine()
         {
             stateTimeMsElapsed = 0;
+            maxDyingTime = 0;
+            maxReadyingTime = 0;
             gameStateUpdateMappings = new Dictionary<GameStateCodes, UpdateFunc>
             {
                 { GameStateCodes.StartingUp, StartingUpUpdate },
@@ -38,17 +41,22 @@ namespace Bugs_and_Berries_game.StateMachine
                 { GameStateCodes.Paused, PausedUpdate },
                 { GameStateCodes.GameOver, GameOverUpdate }
             };
-            transitionFunctionMappings = new Dictionary<GameStateCodes, TransitionFunc>
-            {
-                { GameStateCodes.StartingUp, StartingUpTransition },
-                { GameStateCodes.PlayerReady, PlayerReadyTransition },
-                { GameStateCodes.Playing, PlayingTransition },
-                { GameStateCodes.PlayerDying, PlayerDyingTransition },
-                { GameStateCodes.Paused, PausedTransition },
-                { GameStateCodes.GameOver, GameOverTransition }
-            };
+            observers = new List<IStateTransitionObserver>();
             Dispatch(GameStateCodes.StartingUp);
        }
+
+       public void Subscribe(IStateTransitionObserver observer)
+        {
+            this.observers.Add(observer);
+        }
+
+        public void Unsubscribe(IStateTransitionObserver observer)
+        {
+            if (observers.Contains(observer))
+            {
+                observers.Remove(observer);
+            }
+        }
 
         public GameStateCodes StateCode { get { return gameStateCode; } }
 
@@ -57,11 +65,17 @@ namespace Bugs_and_Berries_game.StateMachine
             currentUpdateFunc(msElapsed);
         }
 
-        public void Die(int chancesLeft)
+        public void ResetGame()
+        {
+            Dispatch(GameStateCodes.PlayerReady);
+        }
+
+        public void Die(int chancesLeft, int maxDyingTime)
         {
             if(chancesLeft > 0)
             {
                 Dispatch(GameStateCodes.PlayerDying);
+                this.maxDyingTime = maxDyingTime;
             }
             else
             {
@@ -69,24 +83,25 @@ namespace Bugs_and_Berries_game.StateMachine
             }
         }
 
+        public void ReadyPlayer(int maxReadyingTime)
+        {
+            this.maxReadyingTime = maxReadyingTime;
+            Dispatch(GameStateCodes.PlayerReady);
+        }
+
+
         private void Dispatch(GameStateCodes newStateCode)
         {
-            if (transitionFunctionMappings.ContainsKey(newStateCode))
-            {
-                TransitionFunc transitionFunc = transitionFunctionMappings[newStateCode];
-                transitionFunc();
-            }
             if (gameStateUpdateMappings.ContainsKey(newStateCode))
             {
                 gameStateCode = newStateCode;
                 currentUpdateFunc = gameStateUpdateMappings[newStateCode];
                 stateTimeMsElapsed = 0;
+                foreach(var observer in observers)
+                {
+                    observer.Transition(newStateCode);
+                }
             }
-        }
-
-        private void StartingUpTransition()
-        {
-
         }
         private void StartingUpUpdate(int msElapsed)
         {
@@ -98,61 +113,33 @@ namespace Bugs_and_Berries_game.StateMachine
             }
         }
 
-        private void PlayerReadyTransition()
-        {
-
-        }
-
         private void PlayerReadyUpdate(int msElapsed)
         {
             // In this state, the player is at the starting position, is blinking, and the input is ignored until
             // the state is over.
-            const int MaxReadingTime = 500;
             stateTimeMsElapsed += msElapsed;
-            if (stateTimeMsElapsed >= MaxReadingTime)
+            if (stateTimeMsElapsed >= maxReadyingTime)
             {
                 Dispatch(GameStateCodes.Playing);
             }
         }
 
-        private void PlayingTransition()
-        {
-
-        }
-
         private void PlayingUpdate(int msElapsed)
         {
-            //stateTimeMsElapsed += msElapsed;
-        }
-
-        private void PlayerDyingTransition()
-        {
-
         }
 
         private void PlayerDyingUpdate(int msElapsed)
         {
-            const int MaxDyingTime = 3000;
             stateTimeMsElapsed += msElapsed;
-            if (stateTimeMsElapsed >= MaxDyingTime)
+            if (stateTimeMsElapsed >= maxDyingTime)
             {
                 Dispatch(GameStateCodes.PlayerReady);
             }
         }
 
-        private void PausedTransition()
-        {
-
-        }
-
         private void PausedUpdate(int msElapsed)
         {
             // wait indefinately for user input; don't risk overrunning stateTimeMsElapsed
-        }
-
-        private void GameOverTransition()
-        {
-
         }
 
         private void GameOverUpdate(int msElapsed)

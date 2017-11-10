@@ -97,6 +97,7 @@
             <Button Style="{StaticResource ButtonStyle1}" x:Name="PlayButton" Foreground="AliceBlue" Background="Gray" FontSize="64" Click="PlayButton_Click">Touch or Click Here to Play</Button>
             <TextBlock FontSize="32"></TextBlock>
             <Button Style="{StaticResource ButtonStyle1}" x:Name="HelpButton" Foreground="AntiqueWhite" Background="Gray" FontSize="64" Click="HelpButton_Click">Touch or Click Here for Help</Button>
+            <Image Source="ms-appx:Assets/Wide310x150Logo.scale-400.png" Stretch="Uniform"/>
         </StackPanel>
         <TextBlock Grid.Row="2" Text="Send email to feedback.bugsandberries@gmail.com" FontSize="32" Foreground="AliceBlue"/>
     </Grid>

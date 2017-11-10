@@ -187,7 +187,8 @@ namespace Bugs_and_Berries_game.World.Locations
         public void ResetPlayer()
         {
             locations[playerLocationId].IsPlayer = false;
-            locations[0].IsPlayer = true;
+            playerLocationId = 0;
+            locations[playerLocationId].IsPlayer = true;
         }
 
         private Location location(int locationId)

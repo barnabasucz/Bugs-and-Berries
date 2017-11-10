@@ -84,6 +84,17 @@ namespace Bugs_and_Berries_game
         {
             var deferral = e.SuspendingOperation.GetDeferral();
             //TODO: Save application state and stop any background activity
+            // what would need to be saved?
+            // Assuming a game is in progress:
+            // # lives left
+            // score
+            // current wave #
+            // state of the current wave (which berries were picked, where each remaining bug in the wave is)
+            // might not store the program counter of each bug's AI, unless that is easy.  Might just "reset"
+            // the bug's AI logic upon restore.
+            // If a game isn't in progress, remember which screen the user was on.
+            // If they were on the Edit screen, save all relevant data that is in memory but hasn't been saved to disk
+            // deliberately by the user yet.
             deferral.Complete();
         }
     }

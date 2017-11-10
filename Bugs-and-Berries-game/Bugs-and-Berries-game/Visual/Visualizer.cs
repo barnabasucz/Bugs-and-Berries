@@ -40,7 +40,15 @@ namespace Bugs_and_Berries_game.Visual
         public void Blink(int maxMs)
         {
             blinking = true;
+            totalBlinkTime = 0;
             maxBlinkTime = maxMs;
+        }
+
+        public void StopBlinking()
+        {
+            blinking = false;
+            maxBlinkTime = 0;
+            totalBlinkTime = 0;
         }
 
         public void Pick()
