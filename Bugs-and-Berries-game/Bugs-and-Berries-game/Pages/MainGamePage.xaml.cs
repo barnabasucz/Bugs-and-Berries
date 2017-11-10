@@ -19,6 +19,9 @@ namespace Bugs_and_Berries_game.Pages
         private Visual.Arrangements.TileArrangements tileArrangements;
         private World.NavMeshes.NavMesh navMesh;
         private Input.UserInput userInput;
+        private int score;
+        private int chancesLeft;
+
         private bool isLoaded;
         private bool upKeyPressed;
         private bool downKeyPressed;
@@ -26,25 +29,25 @@ namespace Bugs_and_Berries_game.Pages
         private bool rightKeyPressed;
         private bool spacebarPressed;
         private bool letterAKeyPressed;
-        private bool escapeKeyPressed;
+        //private bool escapeKeyPressed;
         ButtonAutomationPeer northButtonPeer;
         ButtonAutomationPeer southButtonPeer;
         ButtonAutomationPeer westButtonPeer;
         ButtonAutomationPeer eastButtonPeer;
         ButtonAutomationPeer actionButtonPeer;
-        ButtonAutomationPeer pauseButtonPeer;
+        //ButtonAutomationPeer pauseButtonPeer;
         IInvokeProvider northProv;
         IInvokeProvider southProv;
         IInvokeProvider westProv;
         IInvokeProvider eastProv;
         IInvokeProvider actionProv;
-        IInvokeProvider pauseProv;
+        //IInvokeProvider pauseProv;
 
         public MainGamePage()
         {
             isLoaded = false;
             gameStateMachine = new StateMachine.GameStateMachine();
-            locationContainer = new World.Locations.LocationContainer();
+            locationContainer = new World.Locations.LocationContainer(this);
             tileArrangements = new Visual.Arrangements.TileArrangements();
             visualizer = new Visual.Visualizer(
                 locationContainer, tileArrangements,
@@ -58,7 +61,7 @@ namespace Bugs_and_Berries_game.Pages
             rightKeyPressed = false;
             spacebarPressed = false;
             letterAKeyPressed = false;
-            escapeKeyPressed = false;
+            //escapeKeyPressed = false;
             northButtonPeer = new ButtonAutomationPeer(NorthButton);
             northProv = northButtonPeer.GetPattern(PatternInterface.Invoke) as IInvokeProvider;
             southButtonPeer = new ButtonAutomationPeer(SouthButton);
@@ -69,8 +72,10 @@ namespace Bugs_and_Berries_game.Pages
             eastProv = eastButtonPeer.GetPattern(PatternInterface.Invoke) as IInvokeProvider;
             actionButtonPeer = new ButtonAutomationPeer(ActionButton);
             actionProv = actionButtonPeer.GetPattern(PatternInterface.Invoke) as IInvokeProvider;
-            pauseButtonPeer = new ButtonAutomationPeer(PauseButton);
-            pauseProv = pauseButtonPeer.GetPattern(PatternInterface.Invoke) as IInvokeProvider;
+            //pauseButtonPeer = new ButtonAutomationPeer(PauseButton);
+            //pauseProv = pauseButtonPeer.GetPattern(PatternInterface.Invoke) as IInvokeProvider;
+            score = 0;
+            chancesLeft = 3;
         }
 
         private void NorthButton_Click(object sender, RoutedEventArgs e)
@@ -115,6 +120,12 @@ namespace Bugs_and_Berries_game.Pages
             {
                 userInput.ReceiveAction(locationContainer.PlayerLocationId);
                 spacebarPressed = false;
+                int playerLocationId = locationContainer.PlayerLocationId;
+                if(locationContainer.IsBerryAt(playerLocationId))
+                {
+                    locationContainer.RemoveBerry(playerLocationId);
+                    score++;
+                }
             }
         }
 
@@ -189,12 +200,12 @@ namespace Bugs_and_Berries_game.Pages
                         }
                         letterAKeyPressed = true;
                         break;
-                    case Windows.System.VirtualKey.Escape:
-                        if (!escapeKeyPressed)
-                        {
-                            pauseProv.Invoke();
-                        }
-                        break;
+                    //case Windows.System.VirtualKey.Escape:
+                    //    if (!escapeKeyPressed)
+                    //    {
+                    //        pauseProv.Invoke();
+                    //    }
+                    //    break;
                     default:
                         break;
                 }
@@ -225,9 +236,9 @@ namespace Bugs_and_Berries_game.Pages
                 case Windows.System.VirtualKey.A:
                     letterAKeyPressed = false;
                     break;
-                case Windows.System.VirtualKey.Escape:
-                    escapeKeyPressed = false;
-                    break;
+                //case Windows.System.VirtualKey.Escape:
+                //    escapeKeyPressed = false;
+                //    break;
                 default:
                     break;
             }
@@ -237,7 +248,18 @@ namespace Bugs_and_Berries_game.Pages
             Microsoft.Graphics.Canvas.UI.Xaml.CanvasAnimatedUpdateEventArgs args)
         {
             int msElapsed = args.Timing.ElapsedTime.Milliseconds;
+            int playerLocationId = locationContainer.PlayerLocationId;
+            if (locationContainer.IsBugAt(playerLocationId))
+            {
+                chancesLeft--;
+                gameStateMachine.Die(chancesLeft);
+                visualizer.Blink(2000);
+                locationContainer.ResetPlayer();
+            }
+
             gameStateMachine.Update(msElapsed);
+            visualizer.Update(gameStateMachine.StateCode, msElapsed);
+            locationContainer.Update(msElapsed);
             userInput.Update(msElapsed);
         }
 
@@ -248,6 +270,12 @@ namespace Bugs_and_Berries_game.Pages
             {
                 args.DrawingSession.Clear(Color.FromArgb(255, 220, 220, 220));
                 visualizer.Draw(sender, args, gameStateMachine.StateCode);
+                args.DrawingSession.DrawText("Score: " + score.ToString().PadLeft(9, '0'), 
+                    new System.Numerics.Vector2(0f, 0f), 
+                    Color.FromArgb(255, 0, 0, 0));
+                args.DrawingSession.DrawText("Chances Left: " + chancesLeft.ToString(),
+                   new System.Numerics.Vector2(0f, 50f),
+                   Color.FromArgb(255, 0, 0, 0));
             }
         }
 
@@ -291,7 +319,7 @@ namespace Bugs_and_Berries_game.Pages
 
         public void PickupBerryAt(int destinationId)
         {
-            throw new System.NotImplementedException();
+            visualizer.Pick();
         }
 
         public void PickupSunblockAt(int destinationId)

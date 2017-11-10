@@ -16,7 +16,7 @@
    id="svg8"
    inkscape:version="0.92.2 (5c3e80d, 2017-08-06)"
    sodipodi:docname="BackgroundTile_AllTypes.svg"
-   inkscape:export-filename="C:\Users\Barna\source\repos\Bugs-and-Berries\inkscape files\PlayerIdle.png"
+   inkscape:export-filename="C:\Users\Barna\source\repos\Bugs-and-Berries\inkscape files\BGTile_NW.png"
    inkscape:export-xdpi="96"
    inkscape:export-ydpi="96">
   <defs
@@ -29,10 +29,10 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1.9561644"
-     inkscape:cx="314.93585"
-     inkscape:cy="219.97536"
+     inkscape:cx="244.05894"
+     inkscape:cy="107.75462"
      inkscape:document-units="mm"
-     inkscape:current-layer="layer19"
+     inkscape:current-layer="layer2"
      showgrid="false"
      units="px"
      inkscape:pagecheckerboard="true"
@@ -63,55 +63,53 @@
      inkscape:groupmode="layer"
      id="layer3"
      inkscape:label="Road_E"
-     style="display:none"
+     style="display:none;opacity:0.6"
      sodipodi:insensitive="true">
     <rect
        y="62.895248"
-       x="77.2584"
+       x="83.885956"
        height="23.434523"
-       width="85.422623"
+       width="78.795067"
        id="rect4522"
-       style="fill:#aa4400;fill-opacity:1;stroke-width:0.26458332" />
+       style="fill:#aa4400;fill-opacity:1;stroke-width:0.25411221" />
   </g>
   <g
      inkscape:groupmode="layer"
      id="layer4"
      inkscape:label="Road_W"
-     style="display:none"
+     style="display:inline;opacity:0.6"
      sodipodi:insensitive="true">
     <rect
-       style="fill:#aa4400;fill-opacity:1;stroke-width:0.26458332"
+       style="fill:#aa4400;fill-opacity:1;stroke-width:0.13004011"
        id="rect4518"
-       width="85.422623"
+       width="20.634911"
        height="23.434523"
-       x="-42.333332"
+       x="-7.7196069"
        y="62.895248" />
   </g>
   <g
      inkscape:groupmode="layer"
      id="layer2"
      inkscape:label="Road_S"
-     style="display:none"
-     sodipodi:insensitive="true">
+     style="display:inline;opacity:0.6">
     <rect
-       y="69.69886"
+       y="95.026939"
        x="27.214287"
-       height="87.690468"
+       height="12.62329"
        width="40.065475"
-       id="rect4525"
-       style="opacity:1;fill:#d45500;fill-opacity:1;stroke-width:0.2296313" />
+       id="rect81"
+       style="display:inline;opacity:1;fill:#aa4400;fill-opacity:1;stroke-width:0.08712468" />
   </g>
   <g
      inkscape:groupmode="layer"
      id="layer5"
      inkscape:label="Road_N"
-     style="display:none;opacity:1"
-     sodipodi:insensitive="true">
+     style="display:inline;opacity:0.6">
     <rect
-       style="fill:#aa4400;fill-opacity:1;stroke-width:0.2296313"
+       style="fill:#aa4400;fill-opacity:1;stroke-width:0.20472725"
        id="rect4513"
        width="40.065475"
-       height="87.690468"
+       height="69.701401"
        x="27.214287"
        y="-14.967847" />
   </g>
@@ -119,7 +117,7 @@
      inkscape:groupmode="layer"
      id="layer7"
      inkscape:label="Road_Center"
-     style="display:none"
+     style="display:inline;opacity:0.6"
      sodipodi:insensitive="true">
     <rect
        style="fill:#aa4400;fill-opacity:1;stroke-width:0.26458332"
@@ -133,7 +131,8 @@
      inkscape:groupmode="layer"
      id="layer6"
      inkscape:label="Bush"
-     style="display:none;opacity:0.78899997">
+     style="display:inline;opacity:0.6"
+     sodipodi:insensitive="true">
     <rect
        style="fill:#800000;fill-opacity:1;stroke-width:0.26458332"
        id="rect44"
@@ -325,7 +324,7 @@
      inkscape:groupmode="layer"
      id="layer17"
      inkscape:label="Player Shadow"
-     style="opacity:0.5">
+     style="display:none;opacity:0.5">
     <path
        inkscape:connector-curvature="0"
        id="path709"
@@ -336,7 +335,7 @@
      inkscape:groupmode="layer"
      id="layer10"
      inkscape:label="Player"
-     style="display:inline">
+     style="display:none">
     <path
        style="fill:#000000;fill-opacity:1;stroke-width:0.25035855"
        d="m 183.03516,46.537109 a 29.725693,55.288184 0 0 0 -29.72461,55.287111 29.725693,55.288184 0 0 0 16.88867,49.79297 v 12.3125 h -16.88867 v 59.37304 a 36.387345,19.183698 15.361862 0 0 -21.875,-1.32226 14.069504,33.975182 18.601342 0 0 -0.13867,-0.0977 14.069504,33.975182 18.601342 0 0 -24.28907,25.00781 14.069504,33.975182 18.601342 0 0 -4.15039,16.53907 l -33.783201,-20.4668 -10.597657,21.98828 54.085938,32.76563 8.72656,-18.10352 a 14.069504,33.975182 18.601342 0 0 10.76367,-19.14844 14.069504,33.975182 18.601342 0 0 1.37891,-4.10546 36.387345,19.183698 15.361862 0 0 13.02734,4.79296 36.387345,19.183698 15.361862 0 0 6.85157,1.35547 v 2.15235 h 48.79297 a 33.966608,15.591105 64.003927 0 0 2.5996,5.5664 33.966608,15.591105 64.003927 0 0 0.83594,1.54102 17.227387,40.519427 0 0 0 -1.53515,15.61328 h -2.72657 v 27.21484 h 60.80274 v -27.21484 h -23.66406 a 17.227387,40.519427 0 0 0 -0.25,-5.93359 33.966608,15.591105 64.003927 0 0 -7.2129,-28.41407 33.966608,15.591105 64.003927 0 0 -21.57031,-22.20312 V 163.92969 H 193.8457 v -10.60547 a 29.725693,55.288184 0 0 0 8.18555,-9.03711 71.237027,27.904486 11.927024 0 1 -30.48242,-30.69727 l 39.21484,7.98438 a 29.725693,55.288184 0 0 0 1.93555,-16.53906 10.072223,23.660086 67.17382 0 0 10.91016,-3.05274 10.072223,23.660086 67.17382 0 0 18.86132,-18.445311 10.072223,23.660086 67.17382 0 0 -25.01953,-0.802734 10.072223,23.660086 67.17382 0 0 -6.0039,2.851563 29.725693,55.288184 0 0 0 -28.41211,-39.048829 z M 199.625,67.789062 a 4.3912955,9.4671557 0 0 1 4.39258,9.466797 4.3912955,9.4671557 0 0 1 -4.39258,9.466797 4.3912955,9.4671557 0 0 1 -4.39062,-9.466797 4.3912955,9.4671557 0 0 1 4.39062,-9.466797 z m -12.87305,6.013672 a 4.3912955,14.768762 0 0 1 4.39063,14.767578 4.3912955,14.768762 0 0 1 -4.39063,14.769528 4.3912955,14.768762 0 0 1 -4.39257,-14.769528 4.3912955,14.768762 0 0 1 4.39257,-14.767578 z M 28.675781,174.19141 a 59.280193,27.18878 9.7935415 0 0 54.980469,36.55273 59.280193,27.18878 9.7935415 0 0 62.00781,-17.4082 z"
@@ -348,7 +347,7 @@
      inkscape:groupmode="layer"
      id="layer18"
      inkscape:label="Hand_Extended Shadow"
-     style="display:inline;opacity:0.5">
+     style="display:none;opacity:0.5">
     <path
        inkscape:connector-curvature="0"
        id="path713"
@@ -359,7 +358,7 @@
      inkscape:groupmode="layer"
      id="layer11"
      inkscape:label="Hand_Extended"
-     style="display:inline;opacity:1"
+     style="display:none;opacity:1"
      sodipodi:insensitive="true">
     <path
        style="fill:#000000;fill-opacity:1;stroke-width:0.76134735"

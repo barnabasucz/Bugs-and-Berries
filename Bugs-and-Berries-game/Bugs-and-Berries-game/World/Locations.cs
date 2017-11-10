@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace Bugs_and_Berries_game.World.Locations
 {
@@ -22,13 +23,70 @@ namespace Bugs_and_Berries_game.World.Locations
         public bool IsBug { get { return isBug; } set { isBug = value; } }
     }
 
-    public class LocationContainer: IGameItemHolder
+    // temporary class until I have the wave editor done and working
+    public class WaveBuilder
     {
+        private WaveBuilder() { }
+        public static List<int[]> DefaultWaves()
+        {
+            List<int[]> configurations = new List<int[]>();
+            for(int i = 0; i < 10; i++)
+            {
+                int[] nextWave =
+                {
+                    (int)LocationContainer.GameObjectTypes.None,
+                    (int)LocationContainer.GameObjectTypes.None,
+                    (int)LocationContainer.GameObjectTypes.None,
+                    (int)LocationContainer.GameObjectTypes.Berry,
+                    (int)LocationContainer.GameObjectTypes.None,
+                    (int)LocationContainer.GameObjectTypes.None,
+                    (int)LocationContainer.GameObjectTypes.Bug,
+                    (int)LocationContainer.GameObjectTypes.None,
+                    (int)LocationContainer.GameObjectTypes.Bug,
+                    (int)LocationContainer.GameObjectTypes.None,
+                    (int)LocationContainer.GameObjectTypes.None,
+                    (int)LocationContainer.GameObjectTypes.Berry,
+                    (int)LocationContainer.GameObjectTypes.None,
+                    (int)LocationContainer.GameObjectTypes.None,
+                    (int)LocationContainer.GameObjectTypes.Berry,
+                    (int)LocationContainer.GameObjectTypes.None,
+                    (int)LocationContainer.GameObjectTypes.None,
+                    (int)LocationContainer.GameObjectTypes.None,
+                    (int)LocationContainer.GameObjectTypes.None,
+                    (int)LocationContainer.GameObjectTypes.None,
+                    (int)LocationContainer.GameObjectTypes.None,
+                    (int)LocationContainer.GameObjectTypes.None,
+                    (int)LocationContainer.GameObjectTypes.None,
+                    (int)LocationContainer.GameObjectTypes.None,
+                    (int)LocationContainer.GameObjectTypes.Berry,
+                    (int)LocationContainer.GameObjectTypes.None,
+                    (int)LocationContainer.GameObjectTypes.None,
+                    (int)LocationContainer.GameObjectTypes.Bug,
+                    (int)LocationContainer.GameObjectTypes.None,
+                    (int)LocationContainer.GameObjectTypes.None
+                };
+                configurations.Add(nextWave);
+            }
+            return configurations;
+        }
+    }
+
+    public class LocationContainer: IGameItemHolder, Scripting.IScriptingServer
+    {
+        private List<int[]> waveConfigurations;
+        Scripting.IScriptingServer server;
+        int currentWave;
         private List<Location> locations;
         private int playerLocationId;
         private Dictionary<int, int> bugLocations;
-        public LocationContainer()
+        private Input.BugAI bugAI;
+        const int maxMsTimePerWave = 10000; // TODO: associate ms time with each wave, set via the editor, to enhance difficulty
+        private int msSinceLastWave;
+
+        public LocationContainer(Scripting.IScriptingServer server)
         {
+            this.server = server;
+            bugAI = new Input.BugAI(this);
             locations = new List<Location>(Globals.LocationCount);
             for (int i = 0; i < Globals.LocationCount; i++)
             {
@@ -36,14 +94,34 @@ namespace Bugs_and_Berries_game.World.Locations
             }
             playerLocationId = 0;
             bugLocations = new Dictionary<int, int>();
+            waveConfigurations = WaveBuilder.DefaultWaves();
             ResetGame();
+        }
+
+        public void Update(int msElapsed)
+        {
+            msSinceLastWave += msElapsed;
+            if (msSinceLastWave >= maxMsTimePerWave)
+            {
+                msSinceLastWave = 0;
+                currentWave++;
+                if (currentWave >= waveConfigurations.Count)
+                {
+                    currentWave = 0;
+                }
+                Feed(waveConfigurations[currentWave]);
+            }
+            else
+            {
+                bugAI.Update(msElapsed);
+            }
         }
 
         public int PlayerLocationId { get { return playerLocationId; } }
 
         public enum GameObjectTypes
         {
-            Undefined = 0,
+            None = 0,
             Player = 1,
             Berry = 2,
             Sunblock = 4,
@@ -56,21 +134,39 @@ namespace Bugs_and_Berries_game.World.Locations
             // Can store each location in a byte, or in a word, integer, etc.
             // Using int for now, even though it might waste space.  Will make adding new object 
             // types easy in the future.
+            bugAI = null;
+            bugAI = new Input.BugAI(this);
             int bugsAdded = 0;
+            bugLocations = null;
+            bugLocations = new Dictionary<int, int>();
+            // do NOT reset the player location!
             if(configuration.Length == Globals.LocationCount)
             {
                 for(int i = 0; i < Globals.LocationCount; i++)
                 {
                     int locationConfig = configuration[i];
-                    bool isPlayer = (0 != (locationConfig & (int)GameObjectTypes.Player));
+                    bool isPlayer;
+                    bool isBug;
+                    if (i != playerLocationId)
+                    {
+                        // avoid teleporting the player or obliterating him completely:
+                        isPlayer = (0 != (locationConfig & (int)GameObjectTypes.Player));
+                        // avoid spawn-killing the player with a newly spawned bug:
+                        isBug = (0 != (locationConfig & (int)GameObjectTypes.Bug));
+                    }
+                    else
+                    {
+                        isPlayer = true;
+                        isBug = false;
+                    }
                     bool isBerry = (0 != (locationConfig & (int)GameObjectTypes.Berry));
                     bool isSunblock = (0 != (locationConfig & (int)GameObjectTypes.Sunblock));
-                    bool isBug = (0 != (locationConfig & (int)GameObjectTypes.Bug));
                     Location loc = new Location(isPlayer, isBerry, isSunblock, isBug);
                     if (isBug)
                     {
                         bugsAdded++;
                         bugLocations.Add(bugsAdded, i);
+                        bugAI.AddBug(bugsAdded);
                     }
                     locations[i] = loc;
                 }
@@ -79,7 +175,12 @@ namespace Bugs_and_Berries_game.World.Locations
 
         public void ResetGame()
         {
-            // set the wave back to #0, then feed in the first (#0) wave.
+            msSinceLastWave = 0;
+            currentWave = 0;
+            if (waveConfigurations.Count > 0)
+            {
+                Feed(waveConfigurations[0]);
+            }
             ResetPlayer();
         }
 
@@ -157,11 +258,80 @@ namespace Bugs_and_Berries_game.World.Locations
                 loc.IsBerry = false;
             }
         }
+        
+        public void RemoveBug(int locationId)
+        {
+            if (locationId >= 0 && locationId < locations.Count)
+            {
+                Location loc = locations[locationId];
+                loc.IsBug = false;
+                if (bugLocations.ContainsValue(locationId))
+                {
+                    int bugId = bugLocations.FirstOrDefault(x=>x.Value==locationId).Key;
+                    bugAI.RemoveBug(bugId);
+                }
+            }
+        }
 
         public void RemoveSunblock()
         {
             Location loc = locations[0];
             loc.IsSunblock = false;
+        }
+
+        public void PlaySound(int soundType)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void MoveTo(int objectId, int destinationId)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void IgnoreInput(int milliseconds)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void BitePlayer()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void PickupBerryAt(int destinationId)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void PickupSunblockAt(int destinationId)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void TryNorth(int locationId)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void TrySouth(int locationId)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void TryWest(int locationId)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void TryEast(int locationId)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void Idle(int milliseconds)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

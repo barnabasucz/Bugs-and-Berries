@@ -9,6 +9,15 @@ namespace Bugs_and_Berries_game.Visual
 {
     public class Visualizer
     {
+        private bool blinking; // false = don't animate blinkStateOn; true = animate blinkStateOn
+        private bool blinkStateOn; // true = draw player, false = don't draw player
+        private const int blinkInterval = 340;
+        private int blinkLength;
+        private int maxBlinkTime;
+        private int totalBlinkTime;
+        private bool picking;
+        private const int maxPickTime = 500;
+        private int pickTime;
         private World.IGameItemHolder gameItemHolder;
         private ITileCoordinateHolder tileCoordinateHolder;
         private ICanvasBitmapHolder bitmapHolder;
@@ -18,10 +27,58 @@ namespace Bugs_and_Berries_game.Visual
             this.gameItemHolder = gameItemHolder;
             this.tileCoordinateHolder = tileCoordinateHolder;
             this.bitmapHolder = bitmapHolder;
+            blinking = false;
+            blinkStateOn = true;
+            blinkLength = 0;
+            picking = false;
+            pickTime = 0;
         }
 
         public World.IGameItemHolder GameItemHolder { set { gameItemHolder = value; } }
         public ITileCoordinateHolder TileCoordinateHolder { set { tileCoordinateHolder = value; } }
+
+        public void Blink(int maxMs)
+        {
+            blinking = true;
+            maxBlinkTime = maxMs;
+        }
+
+        public void Pick()
+        {
+            picking = true;
+        }
+
+        public void Update(StateMachine.GameStateCodes gameState, int msElapsed)
+        {
+            if (blinking)
+            {
+                blinkLength += msElapsed;
+                if (totalBlinkTime >= maxBlinkTime)
+                {
+                    blinking = false;
+                    totalBlinkTime = 0;
+                    blinkLength = 0;
+                }
+                else
+                {
+                    if (blinkLength >= blinkInterval)
+                    {
+                        blinkStateOn = !blinkStateOn;
+                        blinkLength = 0;
+                    }
+                }
+            }
+            else
+            {
+                blinkStateOn = true;
+            }
+            pickTime += msElapsed;
+            if (pickTime >= maxPickTime)
+            {
+                picking = false;
+                pickTime = 0;
+            }
+        }
 
         public void Draw(Microsoft.Graphics.Canvas.UI.Xaml.ICanvasAnimatedControl sender,
             Microsoft.Graphics.Canvas.UI.Xaml.CanvasAnimatedDrawEventArgs args, StateMachine.GameStateCodes gameState)
@@ -55,12 +112,16 @@ namespace Bugs_and_Berries_game.Visual
                 }
                 if (gameItemHolder.IsPlayerAt(i) || gameState == StateMachine.GameStateCodes.StartingUp)
                 {
-                    CanvasBitmap playerBitmap;
-                    playerBitmap = bitmapHolder.PlayerIdleBitmap();
-                    // to do: change bitmap depending on whether player's hand is out
-                    args.DrawingSession.DrawImage(playerBitmap, r);
+                    if (blinkStateOn)
+                    {
+                        CanvasBitmap playerBitmap;
+                        playerBitmap = bitmapHolder.PlayerIdleBitmap(picking);
+                        args.DrawingSession.DrawImage(playerBitmap, r);
+                    }
                 }
             }
+            // draw message here
+            // fade it during the update function
         }
 
         public delegate void LoadCompleteCallback();

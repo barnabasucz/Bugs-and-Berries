@@ -17,6 +17,9 @@ namespace Bugs_and_Berries_game.World.NavMeshes
             var south = new List<Instruction>();
             var west = new List<Instruction>();
             var east = new List<Instruction>();
+            north.Add(new Instruction(OpCodes.PlaySound, (int)Sounds.SoundIds.BumpWall));
+            south.Add(new Instruction(OpCodes.PlaySound, (int)Sounds.SoundIds.BumpWall));
+            west.Add(new Instruction(OpCodes.PlaySound, (int)Sounds.SoundIds.BumpWall));
             east.Add(new Instruction(OpCodes.PlaySound, (int)Sounds.SoundIds.Walk));
             east.Add(new Instruction(OpCodes.MoveTo, eastId));
             return new NavMeshLocation(locationId, north, south, west, east);
@@ -28,6 +31,8 @@ namespace Bugs_and_Berries_game.World.NavMeshes
             var south = new List<Instruction>();
             var west = new List<Instruction>();
             var east = new List<Instruction>();
+            north.Add(new Instruction(OpCodes.PlaySound, (int)Sounds.SoundIds.BumpWall));
+            south.Add(new Instruction(OpCodes.PlaySound, (int)Sounds.SoundIds.BumpWall));
             west.Add(new Instruction(OpCodes.PlaySound, (int)Sounds.SoundIds.Walk));
             west.Add(new Instruction(OpCodes.MoveTo, westId));
             east.Add(new Instruction(OpCodes.PlaySound, (int)Sounds.SoundIds.Walk));
@@ -43,6 +48,7 @@ namespace Bugs_and_Berries_game.World.NavMeshes
             var east = new List<Instruction>();
             north.Add(new Instruction(OpCodes.PlaySound, (int)Sounds.SoundIds.Walk));
             north.Add(new Instruction(OpCodes.MoveTo, northId));
+            south.Add(new Instruction(OpCodes.PlaySound, (int)Sounds.SoundIds.BumpWall));
             west.Add(new Instruction(OpCodes.PlaySound, (int)Sounds.SoundIds.Walk));
             west.Add(new Instruction(OpCodes.MoveTo, westId));
             east.Add(new Instruction(OpCodes.PlaySound, (int)Sounds.SoundIds.Walk));
@@ -60,6 +66,8 @@ namespace Bugs_and_Berries_game.World.NavMeshes
             north.Add(new Instruction(OpCodes.MoveTo, northId));
             south.Add(new Instruction(OpCodes.PlaySound, (int)Sounds.SoundIds.Walk));
             south.Add(new Instruction(OpCodes.MoveTo, southId));
+            west.Add(new Instruction(OpCodes.PlaySound, (int)Sounds.SoundIds.BumpWall));
+            east.Add(new Instruction(OpCodes.PlaySound, (int)Sounds.SoundIds.BumpWall));
             return new NavMeshLocation(locationId, north, south, west, east);
         }
 
@@ -73,6 +81,7 @@ namespace Bugs_and_Berries_game.World.NavMeshes
             north.Add(new Instruction(OpCodes.MoveTo, northId));
             south.Add(new Instruction(OpCodes.PlaySound, (int)Sounds.SoundIds.Walk));
             south.Add(new Instruction(OpCodes.MoveTo, southId));
+            west.Add(new Instruction(OpCodes.PlaySound, (int)Sounds.SoundIds.BumpWall));
             east.Add(new Instruction(OpCodes.PlaySound, (int)Sounds.SoundIds.Walk));
             east.Add(new Instruction(OpCodes.MoveTo, eastId));
             return new NavMeshLocation(locationId, north, south, west, east);
@@ -84,8 +93,11 @@ namespace Bugs_and_Berries_game.World.NavMeshes
             var south = new List<Instruction>();
             var west = new List<Instruction>();
             var east = new List<Instruction>();
+            north.Add(new Instruction(OpCodes.PlaySound, (int)Sounds.SoundIds.BumpWall));
             south.Add(new Instruction(OpCodes.PlaySound, (int)Sounds.SoundIds.Walk));
             south.Add(new Instruction(OpCodes.MoveTo, southId));
+            west.Add(new Instruction(OpCodes.PlaySound, (int)Sounds.SoundIds.BumpWall));
+            east.Add(new Instruction(OpCodes.PlaySound, (int)Sounds.SoundIds.BumpWall));
             return new NavMeshLocation(locationId, north, south, west, east);
         }
 
@@ -118,6 +130,7 @@ namespace Bugs_and_Berries_game.World.NavMeshes
             south.Add(new Instruction(OpCodes.MoveTo, southId));
             west.Add(new Instruction(OpCodes.PlaySound, (int)Sounds.SoundIds.Walk));
             west.Add(new Instruction(OpCodes.MoveTo, westId));
+            east.Add(new Instruction(OpCodes.PlaySound, (int)Sounds.SoundIds.BumpWall));
             return new NavMeshLocation(locationId, north, south, west, east);
         }
 
@@ -129,8 +142,10 @@ namespace Bugs_and_Berries_game.World.NavMeshes
             var east = new List<Instruction>();
             north.Add(new Instruction(OpCodes.PlaySound, (int)Sounds.SoundIds.Walk));
             north.Add(new Instruction(OpCodes.MoveTo, northId));
+            south.Add(new Instruction(OpCodes.PlaySound, (int)Sounds.SoundIds.BumpWall));
             west.Add(new Instruction(OpCodes.PlaySound, (int)Sounds.SoundIds.Walk));
             west.Add(new Instruction(OpCodes.MoveTo, westId));
+            east.Add(new Instruction(OpCodes.PlaySound, (int)Sounds.SoundIds.BumpWall));
             return new NavMeshLocation(locationId, north, south, west, east);
         }
     }

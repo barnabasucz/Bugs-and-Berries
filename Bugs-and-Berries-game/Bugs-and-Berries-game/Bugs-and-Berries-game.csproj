@@ -99,6 +99,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Input\BugAI.cs" />
     <Compile Include="Input\UserInput.cs" />
     <Compile Include="ObjectLogic\ObjectLogicConstants.cs" />
     <Compile Include="Pages\EditorPage.xaml.cs">
@@ -150,8 +151,16 @@
   <ItemGroup>
     <None Include="Package.StoreAssociation.xml" />
     <Content Include="Assets\Berry.png" />
+    <Content Include="Assets\BGTile_E.png" />
+    <Content Include="Assets\BGTile_NS.png" />
+    <Content Include="Assets\BGTile_NSE.png" />
+    <Content Include="Assets\BGTile_NSW.png" />
+    <Content Include="Assets\BGTile_NSWE.png" />
+    <Content Include="Assets\BGTile_NW.png" />
+    <Content Include="Assets\BGTile_NWE.png" />
+    <Content Include="Assets\BGTile_S.png" />
+    <Content Include="Assets\BGTile_WE.png" />
     <Content Include="Assets\Bug.png" />
-    <Content Include="Assets\E.png" />
     <EmbeddedResource Include="Assets\Editor_AddWaveButton.png" />
     <EmbeddedResource Include="Assets\Editor_BerryToolButton.png" />
     <EmbeddedResource Include="Assets\Editor_BugToolButton.png" />
@@ -159,20 +168,15 @@
     <EmbeddedResource Include="Assets\Editor_PlayButton.png" />
     <EmbeddedResource Include="Assets\Editor_SaveWaveButton.png" />
     <EmbeddedResource Include="Assets\Editor_TrashWaveButton.png" />
+    <Content Include="Assets\Button_Movement.png" />
+    <Content Include="Assets\FaceplateLcdBorder.png" />
     <Content Include="Assets\LargeTile.scale-100.png" />
     <Content Include="Assets\LargeTile.scale-125.png" />
     <Content Include="Assets\LargeTile.scale-150.png" />
     <Content Include="Assets\LargeTile.scale-200.png" />
     <Content Include="Assets\LargeTile.scale-400.png" />
-    <Content Include="Assets\NS.png" />
-    <Content Include="Assets\NSE.png" />
-    <Content Include="Assets\NSW.png" />
-    <Content Include="Assets\NSWE.png" />
-    <Content Include="Assets\NW.png" />
-    <Content Include="Assets\NWE.png" />
     <Content Include="Assets\PlayerIdle.png" />
     <Content Include="Assets\PlayerPicking.png" />
-    <Content Include="Assets\S.png" />
     <Content Include="Assets\SmallTile.scale-100.png" />
     <Content Include="Assets\SmallTile.scale-125.png" />
     <Content Include="Assets\SmallTile.scale-150.png" />
@@ -204,7 +208,6 @@
     <Content Include="Assets\StoreLogo.scale-150.png" />
     <Content Include="Assets\StoreLogo.scale-200.png" />
     <Content Include="Assets\StoreLogo.scale-400.png" />
-    <Content Include="Assets\WE.png" />
     <Content Include="Assets\Wide310x150Logo.scale-100.png" />
     <Content Include="Assets\Wide310x150Logo.scale-125.png" />
     <Content Include="Assets\Wide310x150Logo.scale-150.png" />

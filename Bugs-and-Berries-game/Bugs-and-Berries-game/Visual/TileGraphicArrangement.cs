@@ -58,15 +58,15 @@ namespace Bugs_and_Berries_game.Visual
                 bitmaps = null;
                 bitmaps = new List<Microsoft.Graphics.Canvas.CanvasBitmap>((int)BitmapIds.PlayerPicking + 1);
                 // E, WE need to be redrawn to look like they are in the shade of the tent
-                bitmaps.Add( await CanvasBitmap.LoadAsync(sender, folderName + @"E.png")); //bitmaps[(int)BitmapIds.E]
-                bitmaps.Add( await CanvasBitmap.LoadAsync(sender, folderName +@"WE.png")); //bitmaps[(int)BitmapIds.WE] 
-                bitmaps.Add( await CanvasBitmap.LoadAsync(sender, folderName + @"NWE.png")); //bitmaps[(int)BitmapIds.NWE]
-                bitmaps.Add( await CanvasBitmap.LoadAsync(sender, folderName + @"NS.png")); //bitmaps[(int)BitmapIds.NS]
-                bitmaps.Add( await CanvasBitmap.LoadAsync(sender, folderName + @"NSE.png")); //bitmaps[(int)BitmapIds.NSE]
-                bitmaps.Add( await CanvasBitmap.LoadAsync(sender, folderName + @"S.png")); //bitmaps[(int)BitmapIds.S]
-                bitmaps.Add( await CanvasBitmap.LoadAsync(sender, folderName + @"NSWE.png")); //bitmaps[(int)BitmapIds.NSWE]
-                bitmaps.Add( await CanvasBitmap.LoadAsync(sender, folderName + @"NSW.png")); //bitmaps[(int)BitmapIds.NSW]
-                bitmaps.Add( await CanvasBitmap.LoadAsync(sender, folderName + @"NW.png")); //bitmaps[(int)BitmapIds.NW]
+                bitmaps.Add( await CanvasBitmap.LoadAsync(sender, folderName + @"BGTile_E.png")); //bitmaps[(int)BitmapIds.E]
+                bitmaps.Add( await CanvasBitmap.LoadAsync(sender, folderName + @"BGTile_WE.png")); //bitmaps[(int)BitmapIds.WE] 
+                bitmaps.Add( await CanvasBitmap.LoadAsync(sender, folderName + @"BGTile_NWE.png")); //bitmaps[(int)BitmapIds.NWE]
+                bitmaps.Add( await CanvasBitmap.LoadAsync(sender, folderName + @"BGTile_NS.png")); //bitmaps[(int)BitmapIds.NS]
+                bitmaps.Add( await CanvasBitmap.LoadAsync(sender, folderName + @"BGTile_NSE.png")); //bitmaps[(int)BitmapIds.NSE]
+                bitmaps.Add( await CanvasBitmap.LoadAsync(sender, folderName + @"BGTile_S.png")); //bitmaps[(int)BitmapIds.S]
+                bitmaps.Add( await CanvasBitmap.LoadAsync(sender, folderName + @"BGTile_NSWE.png")); //bitmaps[(int)BitmapIds.NSWE]
+                bitmaps.Add( await CanvasBitmap.LoadAsync(sender, folderName + @"BGTile_NSW.png")); //bitmaps[(int)BitmapIds.NSW]
+                bitmaps.Add( await CanvasBitmap.LoadAsync(sender, folderName + @"BGTile_NW.png")); //bitmaps[(int)BitmapIds.NW]
                 // Add Tent Left and Tent Right, here (also insert relevant enums before BitmapIds.Berry)
                 bitmaps.Add(await CanvasBitmap.LoadAsync(sender, folderName + @"Berry.png")); // bitmaps[(int)BitmapIds.Berry]
                 bitmaps.Add(await CanvasBitmap.LoadAsync(sender, folderName + @"Bug.png")); // bitmaps[(int)BitmapIds.Bug]
@@ -126,9 +126,16 @@ namespace Bugs_and_Berries_game.Visual
             return bitmaps[(int)BitmapIds.Bug];
         }
 
-        public CanvasBitmap PlayerIdleBitmap()
+        public CanvasBitmap PlayerIdleBitmap(bool picking)
         {
-            return bitmaps[(int)BitmapIds.PlayerIdle];
+            if (!picking)
+            {
+                return bitmaps[(int)BitmapIds.PlayerIdle];
+            }
+            else
+            {
+                return bitmaps[(int)BitmapIds.PlayerPicking];
+            }
         }
 
         public CanvasBitmap PlayerPickingBitmap()

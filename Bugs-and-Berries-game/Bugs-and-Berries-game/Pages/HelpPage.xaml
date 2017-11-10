@@ -6,6 +6,81 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
+    <Page.Resources>
+        <Style x:Key="ButtonStyle1" TargetType="Button">
+            <Setter Property="Background" Value="{ThemeResource ButtonBackground}"/>
+            <Setter Property="Foreground" Value="{ThemeResource ButtonForeground}"/>
+            <Setter Property="BorderBrush" Value="{ThemeResource ButtonBorderBrush}"/>
+            <Setter Property="BorderThickness" Value="{ThemeResource ButtonBorderThemeThickness}"/>
+            <Setter Property="Padding" Value="8,4,8,4"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="FontFamily" Value="{ThemeResource ContentControlThemeFontFamily}"/>
+            <Setter Property="FontWeight" Value="Normal"/>
+            <Setter Property="FontSize" Value="{ThemeResource ControlContentThemeFontSize}"/>
+            <Setter Property="UseSystemFocusVisuals" Value="True"/>
+            <Setter Property="FocusVisualMargin" Value="-3"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Grid x:Name="RootGrid" Background="{TemplateBinding Background}">
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualState x:Name="Normal">
+                                        <Storyboard>
+                                            <PointerUpThemeAnimation Storyboard.TargetName="RootGrid"/>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="PointerOver">
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="RootGrid" Storyboard.TargetProperty="Background">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="LightGray"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="BorderBrush">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ButtonBorderBrushPointerOver}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Foreground">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ButtonForegroundPointerOver}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <PointerUpThemeAnimation Storyboard.TargetName="RootGrid"/>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Pressed">
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="RootGrid" Storyboard.TargetProperty="Background">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ButtonBackgroundPressed}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="BorderBrush">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ButtonBorderBrushPressed}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Foreground">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ButtonForegroundPressed}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <PointerDownThemeAnimation Storyboard.TargetName="RootGrid"/>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Disabled">
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="RootGrid" Storyboard.TargetProperty="Background">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ButtonBackgroundDisabled}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="BorderBrush">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ButtonBorderBrushDisabled}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter" Storyboard.TargetProperty="Foreground">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource ButtonForegroundDisabled}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            <ContentPresenter x:Name="ContentPresenter" AutomationProperties.AccessibilityView="Raw" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" ContentTransitions="{TemplateBinding ContentTransitions}" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" Padding="{TemplateBinding Padding}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Page.Resources>
 
     <Grid Background="Black">
         <Grid.RowDefinitions>
@@ -18,9 +93,29 @@
             <RowDefinition Height="1*" />
         </Grid.RowDefinitions>
         <TextBlock Grid.Row="0" Foreground="White" FontSize="64" Text="HOW TO PLAY" />
-        <TextBlock Grid.Row="2" Foreground="AntiqueWhite" FontSize="32" Text="Game Objective" />
-        <TextBlock Grid.Row="4" Foreground="AntiqueWhite" FontSize="32" Text="Game Controls" />
-        <Grid x:Name="GameObjectiveGrid" Grid.Row="5" >
+        <TextBlock Grid.Row="2" Foreground="White" FontSize="32" Text="Game Objective" />
+        <Grid x:Name="GameObjectiveGrid" Grid.Row="3" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="1*" />
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Row="0" FontSize="16" Foreground="AntiqueWhite"
+                       Text="Move your player character to bushes that have berries, then press the Action button" />
+            <TextBlock Grid.Row="1" FontSize="16" Foreground="AntiqueWhite"
+                       Text="to pick up the berry.  Don't try picking when there is a bug, or you'll lose a 'chance'" />
+            <TextBlock Grid.Row="2" FontSize="16" Foreground="AntiqueWhite"
+                       Text="and move back to start.  You won't lose your berries unless you lose all your chances and" />
+            <TextBlock Grid.Row="3" FontSize="16" Foreground="AntiqueWhite"
+                       Text="get GAME OVER." />
+            <TextBlock Grid.Row="5" FontSize="16" Foreground="AntiqueWhite"
+                        Text="You also lose a 'chance' if you're at a bush at the same time as a bug!"    />
+        </Grid>
+        <TextBlock Grid.Row="4" Foreground="White" FontSize="32" Text="Game Controls" />
+        <Grid x:Name="GameControlsGrid" Grid.Row="5" >
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="10*" />
@@ -35,16 +130,16 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="1*" />
             </Grid.RowDefinitions>
-            <TextBlock Grid.Row="0" Grid.Column="0" Text="To Move Player" FontSize="16" Foreground="White" />
+            <TextBlock Grid.Row="0" Grid.Column="0" Text="To Move Player" FontSize="16" Foreground="AntiqueWhite" />
             <TextBlock Grid.Row="0" Grid.Column="1" FontSize="16" Foreground="LightGreen" FontWeight="Bold"
-                       Text="Touch: press 'Movement' buttons with your finger; Mouse: click 'Movement' buttons; Keyboard: use arrow keys" />
+                       Text="Touch: press 'Movement' buttons with your finger" />
             <TextBlock Grid.Row="1" Grid.Column="1" FontSize="16" Foreground="LightGreen" FontWeight="Bold"
                        Text="Mouse: click 'Movement' buttons; Keyboard: use arrow keys" />
             <TextBlock Grid.Row="2" Grid.Column="1" FontSize="16" Foreground="LightGreen" FontWeight="Bold"
                        Text="Keyboard: use arrow keys" />
-            <TextBlock Grid.Row="4" Grid.Column="0" Text="Pick up Berry or Sunblock" Foreground="White" FontSize="16" />
+            <TextBlock Grid.Row="4" Grid.Column="0" Text="Pick up Berry" Foreground="AntiqueWhite" FontSize="16" />
             <TextBlock Grid.Row="4" Grid.Column="1" FontSize="16" Foreground="LightGreen" FontWeight="Bold"
-                       Text="Touch: press 'Action' button with your finger; Mouse: click 'Action' button; Keyboard: press the 'A' key (NOT spacebar, NOT Enter!)" />
+                       Text="Touch: press 'Action' button with your finger" />
             <TextBlock Grid.Row="5" Grid.Column="1" FontSize="16" Foreground="LightGreen" FontWeight="Bold"
                        Text="Mouse: click 'Action' button" />
             <TextBlock Grid.Row="6" Grid.Column="1" FontSize="16" Foreground="LightGreen" FontWeight="Bold"
@@ -55,7 +150,7 @@
                 <ColumnDefinition Width="10*" />
                 <ColumnDefinition Width="2*" />
             </Grid.ColumnDefinitions>
-            <Button Grid.Column="1" Foreground="White" Background="Gray" FontSize="64" Click="Button_Click">Back</Button>
+            <Button Style="{StaticResource ButtonStyle1}" Grid.Column="1" Foreground="White" Background="Gray" FontSize="64" Click="Button_Click">Back</Button>
         </Grid>
 
     </Grid>

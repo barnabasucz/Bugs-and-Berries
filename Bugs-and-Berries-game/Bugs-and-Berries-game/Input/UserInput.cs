@@ -70,7 +70,7 @@ namespace Bugs_and_Berries_game.Input
         {
             if (!ignoringInput)
             {
-
+                interpreter.Dispatch(Scripting.Instructions.OpCodes.PickupBerry, 0);
             }
         }
 

@@ -41,27 +41,28 @@ namespace Bugs_and_Berries_game.Scripting
 
         public void TryNorth(int locationId)
         {
-            server.TryNorth(locationId);
+            //server.TryNorth(locationId);
         }
 
         public void TrySouth(int locationId)
         {
-            server.TrySouth(locationId);
+            //server.TrySouth(locationId);
         }
 
         public void TryWest(int locationId)
         {
-            server.TryWest(locationId);
+            //server.TryWest(locationId);
         }
 
         public void TryEast(int locationId)
         {
-            server.TryEast(locationId);
+            //server.TryEast(locationId);
         }
 
         public void Idle(int milliseconds)
         {
-            server.Idle(milliseconds);
+            // might want to make either the BugAI or the BugMind be the server for this object!
+            //server.Idle(milliseconds);
         }
 
         public override bool Equals(object obj)
