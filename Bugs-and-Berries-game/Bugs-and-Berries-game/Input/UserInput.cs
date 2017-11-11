@@ -14,11 +14,12 @@ namespace Bugs_and_Berries_game.Input
         private Scripting.PlayerInterpreter interpreter;
         private World.NavMeshes.NavMesh navMesh;
 
-        public UserInput(Scripting.IScriptingServer scriptingServer, World.NavMeshes.NavMesh navMesh)
+        public UserInput(Scripting.IMover mover, Scripting.ISoundPlayer soundPlayer,
+            Scripting.IItemPicker itemPicker, World.NavMeshes.NavMesh navMesh)
         {
             elapsedIgnoreMilliseconds = 0;
             ignoringInput = false;
-            interpreter = new Scripting.PlayerInterpreter(scriptingServer);
+            interpreter = new Scripting.PlayerInterpreter(mover, soundPlayer, itemPicker);
             this.navMesh = navMesh;
         }
 

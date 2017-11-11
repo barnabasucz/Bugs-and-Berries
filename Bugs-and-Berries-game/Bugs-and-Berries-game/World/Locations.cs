@@ -71,10 +71,11 @@ namespace Bugs_and_Berries_game.World.Locations
         }
     }
 
-    public class LocationContainer: IGameItemHolder, Scripting.IScriptingServer
+    public class LocationContainer: IGameItemHolder, Scripting.ILocator
     {
+        private Scripting.IMover mover;
+        private World.NavMeshes.NavMesh navMesh;
         private List<int[]> waveConfigurations;
-        Scripting.IScriptingServer server;
         int currentWave;
         private List<Location> locations;
         private int playerLocationId;
@@ -83,10 +84,11 @@ namespace Bugs_and_Berries_game.World.Locations
         const int maxMsTimePerWave = 10000; // TODO: associate ms time with each wave, set via the editor, to enhance difficulty
         private int msSinceLastWave;
 
-        public LocationContainer(Scripting.IScriptingServer server)
+        public LocationContainer(Scripting.IMover mover, World.NavMeshes.NavMesh navMesh)
         {
-            this.server = server;
-            bugAI = new Input.BugAI(this);
+            this.mover = mover;
+            this.navMesh = navMesh;
+            bugAI = new Input.BugAI(mover, navMesh, this);
             locations = new List<Location>(Globals.LocationCount);
             for (int i = 0; i < Globals.LocationCount; i++)
             {
@@ -135,7 +137,7 @@ namespace Bugs_and_Berries_game.World.Locations
             // Using int for now, even though it might waste space.  Will make adding new object 
             // types easy in the future.
             bugAI = null;
-            bugAI = new Input.BugAI(this);
+            bugAI = new Input.BugAI(mover, navMesh, this);
             int bugsAdded = 0;
             bugLocations = null;
             bugLocations = new Dictionary<int, int>();
@@ -310,11 +312,6 @@ namespace Bugs_and_Berries_game.World.Locations
             throw new System.NotImplementedException();
         }
 
-        public void TryNorth(int locationId)
-        {
-            throw new System.NotImplementedException();
-        }
-
         public void TrySouth(int locationId)
         {
             throw new System.NotImplementedException();
@@ -334,5 +331,17 @@ namespace Bugs_and_Berries_game.World.Locations
         {
             throw new System.NotImplementedException();
         }
+
+        public int LocationFor(int objectId)
+        {
+            if (objectId == ObjectLogic.Constants.ObjectIds.PlayerId)
+            {
+                return playerLocationId;
+            }
+            else
+            {
+                return bugLocations[objectId];
+            }
+        }
     }
-}
+}  

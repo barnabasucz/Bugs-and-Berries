@@ -134,7 +134,7 @@
             <TextBlock Grid.Row="0" Grid.Column="1" FontSize="16" Foreground="LightGreen" FontWeight="Bold"
                        Text="Touch: press 'Movement' buttons with your finger" />
             <TextBlock Grid.Row="1" Grid.Column="1" FontSize="16" Foreground="LightGreen" FontWeight="Bold"
-                       Text="Mouse: click 'Movement' buttons; Keyboard: use arrow keys" />
+                       Text="Mouse: click 'Movement' buttons" />
             <TextBlock Grid.Row="2" Grid.Column="1" FontSize="16" Foreground="LightGreen" FontWeight="Bold"
                        Text="Keyboard: use arrow keys" />
             <TextBlock Grid.Row="4" Grid.Column="0" Text="Pick up Berry" Foreground="AntiqueWhite" FontSize="16" />

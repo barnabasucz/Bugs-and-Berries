@@ -1,4 +1,5 @@
-﻿using Bugs_and_Berries_game.StateMachine;
+﻿using Bugs_and_Berries_game.Scripting.Instructions;
+using Bugs_and_Berries_game.StateMachine;
 using System.Collections.Generic;
 using Windows.UI;
 using Windows.UI.Xaml;
@@ -13,7 +14,8 @@ namespace Bugs_and_Berries_game.Pages
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class MainGamePage : Page, Scripting.IScriptingServer, IStateTransitionObserver
+    public sealed partial class MainGamePage : Page, 
+        Scripting.IMover, Scripting.ISoundPlayer, Scripting.IItemPicker, IStateTransitionObserver
     {
         // The Main Game Page also serves as the hub of all game logic.
         private StateMachine.GameStateMachine gameStateMachine;
@@ -30,6 +32,7 @@ namespace Bugs_and_Berries_game.Pages
         private const int StartingChances = 3;
         private bool playerVulnerable;
         private string playerMessage;
+        private string playerMessageRow2;
         private int messageFadeOpacity;
         private const int MaxMessageFadeOpacity = 255;
         private const int MinMessageFadeOpacity = 0;
@@ -64,14 +67,14 @@ namespace Bugs_and_Berries_game.Pages
             this.InitializeComponent();
             gameStateMachine = new StateMachine.GameStateMachine();
             gameStateMachine.Subscribe(this);
-            locationContainer = new World.Locations.LocationContainer(this);
+            navMesh = new World.NavMeshes.NavMesh();
+            locationContainer = new World.Locations.LocationContainer(this, navMesh);
             // Tile Arrangments must be loaded before the visualizer tries to use them in its own startup sequence:
             tileArrangements = new Visual.Arrangements.TileArrangements();
             visualizer = new Visual.Visualizer(
                 locationContainer, tileArrangements,
                 new Visual.TileGraphicArrangement());
-            navMesh = new World.NavMeshes.NavMesh();
-            userInput = new Input.UserInput(this, navMesh);
+            userInput = new Input.UserInput(this, this, this, navMesh);
             upKeyPressed = false;
             downKeyPressed = false;
             leftKeyPressed = false;
@@ -102,11 +105,14 @@ namespace Bugs_and_Berries_game.Pages
                 { GameStateCodes.Paused, PausedTransition },
                 { GameStateCodes.GameOver, GameOverTransition }
             };
+            playerMessage = null;
+            playerMessageRow2 = null;
         }
 
-        private void PlayerMessage(string message)
+        private void PlayerMessage(string message, string message2)
         {
             playerMessage = message;
+            playerMessageRow2 = message2;
             messageFadeOpacity = MaxMessageFadeOpacity;
         }
 
@@ -138,7 +144,7 @@ namespace Bugs_and_Berries_game.Pages
 
         private void PlayerDyingTransition() // to do: pass in the string corresponding to how the player died
         {
-            PlayerMessage("That bug bit you!  Try again...");
+            PlayerMessage("That bug bit you!", "Try again...");
             playerVulnerable = false;
             visualizer.Blink(1000);
         }
@@ -150,7 +156,7 @@ namespace Bugs_and_Berries_game.Pages
 
         private void GameOverTransition()
         {
-            PlayerMessage("GAME OVER...Press Action to play again!");
+            PlayerMessage("GAME OVER...Press", "Action to try again");
             visualizer.StopBlinking();
         }
 
@@ -369,6 +375,7 @@ namespace Bugs_and_Berries_game.Pages
                     {
                         messageFadeOpacity = MinMessageFadeOpacity;
                         playerMessage = null;
+                        playerMessageRow2 = null;
                     }
                 }
             }
@@ -393,6 +400,13 @@ namespace Bugs_and_Berries_game.Pages
                         new System.Numerics.Vector2(0f, 100f),
                         Color.FromArgb((byte)messageFadeOpacity, 0, 0, 0));
                 }
+                if (playerMessageRow2 != null)
+                {
+                    args.DrawingSession.DrawText(playerMessageRow2,
+                        new System.Numerics.Vector2(0f, 120f),
+                        Color.FromArgb((byte)messageFadeOpacity, 0, 0, 0));
+                }
+
             }
         }
 
@@ -422,22 +436,10 @@ namespace Bugs_and_Berries_game.Pages
             }
         }
 
-        public void IgnoreInput(int milliseconds)
-        {
-            // assume this consequence came from the player, because bug interpreter doesn't interpret IgnoreInput.
-            userInput.IgnoreInput(milliseconds);
-        }
-
-        public void BitePlayer()
-        {
-            // to do: move game state to player dying
-            throw new System.NotImplementedException();
-        }
-
         public void PickupBerryAt(int destinationId)
         {
             visualizer.Pick();
-            PlayerMessage("Great!");
+            PlayerMessage("Great!", null);
         }
 
         public void PickupSunblockAt(int destinationId)
@@ -445,34 +447,5 @@ namespace Bugs_and_Berries_game.Pages
             throw new System.NotImplementedException();
         }
 
-        public void TryNorth(int locationId)
-        {
-            // possible that this doesn't belong in the IScriptingServer interface, because an earlier object should always handle it
-            throw new System.NotImplementedException();
-        }
-
-        public void TrySouth(int locationId)
-        {
-            // possible that this doesn't belong in the IScriptingServer interface, because an earlier object should always handle it
-            throw new System.NotImplementedException();
-        }
-
-        public void TryWest(int locationId)
-        {
-            // possible that this doesn't belong in the IScriptingServer interface, because an earlier object should always handle it
-            throw new System.NotImplementedException();
-        }
-
-        public void TryEast(int locationId)
-        {
-            // possible that this doesn't belong in the IScriptingServer interface, because an earlier object should always handle it
-            throw new System.NotImplementedException();
-        }
-
-        public void Idle(int milliseconds)
-        {
-            // possible that this doesn't belong in the IScriptingServer interface, because an earlier object should always handle it
-            throw new System.NotImplementedException();
-        }
-    }
+     }
 }

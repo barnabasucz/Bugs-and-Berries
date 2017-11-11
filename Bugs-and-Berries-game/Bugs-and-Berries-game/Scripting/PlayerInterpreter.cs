@@ -6,9 +6,15 @@ namespace Bugs_and_Berries_game.Scripting
     // uses Chain of Responsibility design pattern
     public class PlayerInterpreter: Interpreter
     {
-        public PlayerInterpreter(IScriptingServer server)
+        private Scripting.IMover mover;
+        private Scripting.ISoundPlayer soundPlayer;
+        private Scripting.IItemPicker itemPicker;
+        public PlayerInterpreter(Scripting.IMover mover, 
+            Scripting.ISoundPlayer soundPlayer, Scripting.IItemPicker itemPicker)
         {
-            this.server = server;
+            this.mover = mover;
+            this.soundPlayer = soundPlayer;
+            this.itemPicker = itemPicker;
             dictionary = new Dictionary<Instructions.OpCodes, Action<int>>();
             dictionary.Add(Instructions.OpCodes.PlaySound, PlaySound);
             dictionary.Add(Instructions.OpCodes.MoveTo, MoveTo);
@@ -28,27 +34,26 @@ namespace Bugs_and_Berries_game.Scripting
 
         public void PlaySound(int soundType)
         {
-            server.PlaySound(soundType);
+            soundPlayer.PlaySound(soundType);
         }
 
         public void MoveTo(int destinationId)
         {
-            server.MoveTo(ObjectLogic.Constants.ObjectIds.PlayerId, destinationId);
+            mover.MoveTo(ObjectLogic.Constants.ObjectIds.PlayerId, destinationId);
         }
 
         public void IgnoreInput(int milliseconds)
         {
-            server.IgnoreInput(milliseconds);
         }
 
         public void PickupBerryAt(int destinationId)
         {
-            server.PickupBerryAt(destinationId);
+            itemPicker.PickupBerryAt(destinationId);
         }
 
         public void PickupSunblockAt(int destinationId)
         {
-            server.PickupSunblockAt(destinationId);
+            itemPicker.PickupSunblockAt(destinationId);
         }
 
         public override bool Equals(object obj)

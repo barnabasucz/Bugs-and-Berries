@@ -6,10 +6,22 @@ namespace Bugs_and_Berries_game.Scripting
     public class BugInterpreter: Interpreter
     {
         private int bugId;
-        public BugInterpreter(IScriptingServer server, int bugId)
+        private Scripting.IMover mover;
+        private Scripting.ILocator locator;
+        private World.NavMeshes.NavMesh navMesh;
+        private int totalIdlingTime;
+        private int maxIdlingTime;
+        private bool idling;
+
+        public BugInterpreter(Scripting.IMover mover, Scripting.ILocator locator, World.NavMeshes.NavMesh navMesh, int bugId)
         {
             this.bugId = bugId;
-            this.server = server;
+            this.mover = mover;
+            this.locator = locator;
+            this.navMesh = navMesh;
+            totalIdlingTime = 0;
+            maxIdlingTime = 0;
+            idling = false;
             dictionary = new Dictionary<Instructions.OpCodes, Action<int>>();
             dictionary.Add(Instructions.OpCodes.MoveTo, MoveTo);
             dictionary.Add(Instructions.OpCodes.Bite, Bite);
@@ -20,49 +32,71 @@ namespace Bugs_and_Berries_game.Scripting
             dictionary.Add(Instructions.OpCodes.Idle, Idle);
         }
 
-        public void Dispatch(Instructions.OpCodes opCode, int param)
-        {
-            if (dictionary.ContainsKey(opCode))
-            {
-                Action<int> action = dictionary[opCode];
-                action(param);
-            }
-        }
-
         public void MoveTo(int destinationId)
         {
-            server.MoveTo(bugId, destinationId);
+            mover.MoveTo(bugId, destinationId);
         }
 
         public void Bite(int ignored)
         {
-            server.BitePlayer();
         }
 
-        public void TryNorth(int locationId)
+        public void TryNorth(int ignore)
         {
-            //server.TryNorth(locationId);
+            int locationId = locator.LocationFor(bugId);
+            foreach(var consequence in navMesh.NorthConsequences(locationId))
+            {
+                if (consequence.OpCode == Instructions.OpCodes.MoveTo)
+                {
+                    mover.MoveTo(bugId, consequence.Operand);
+                }
+            }
         }
 
-        public void TrySouth(int locationId)
+        public void TrySouth(int ignore)
         {
-            //server.TrySouth(locationId);
+            int locationId = locator.LocationFor(bugId);
+            foreach (var consequence in navMesh.SouthConsequences(locationId))
+            {
+                if (consequence.OpCode == Instructions.OpCodes.MoveTo)
+                {
+                    mover.MoveTo(bugId, consequence.Operand);
+                }
+            }
         }
 
         public void TryWest(int locationId)
         {
-            //server.TryWest(locationId);
         }
 
         public void TryEast(int locationId)
         {
-            //server.TryEast(locationId);
         }
 
         public void Idle(int milliseconds)
         {
-            // might want to make either the BugAI or the BugMind be the server for this object!
-            //server.Idle(milliseconds);
+            totalIdlingTime = 0;
+            maxIdlingTime = milliseconds;
+            idling = true;
+        }
+
+        public bool IsIdling()
+        {
+            return idling;
+        }
+
+        public void UpdateIdlingTime(int elapsedMs)
+        {
+            if (idling)
+            {
+                totalIdlingTime += elapsedMs;
+                if (totalIdlingTime >= maxIdlingTime)
+                {
+                    idling = false;
+                    totalIdlingTime = 0;
+                    maxIdlingTime = 0;
+                }
+            }
         }
 
         public override bool Equals(object obj)
